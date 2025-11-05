@@ -1,0 +1,9 @@
+/* Search Button Icon */
+.search-btn-icon {
+  position: absolute;
+  left: calc(50% + 0.5px);
+  width: 33px;
+  height: 33px;
+  top: calc(50% + 0.5px);
+  transform: translate(-50%, -50%);
+}

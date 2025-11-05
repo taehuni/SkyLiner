@@ -1,0 +1,100 @@
+/* MainBase Container */
+.main-base-container {
+  background: white;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* NavBar Main Container */
+.navbar-main {
+  position: absolute;
+  background-color: #f7f2ea;
+  height: 66px;
+  left: 0;
+  right: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  top: 0;
+}
+
+/* Search Button Area */
+.search-btn-area-main {
+  position: absolute;
+  height: 66px;
+  overflow: clip;
+  right: 0;
+  top: 0;
+  width: 60px;
+}
+
+/* Menu Bar Area (Search Bar Container) */
+.menu-bar-area-main {
+  position: absolute;
+  height: 66px;
+  left: 60px;
+  overflow: clip;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Search Bar */
+.search-bar-main {
+  position: absolute;
+  background-color: #f9f5e5;
+  height: 42px;
+  left: 0;
+  right: 0;
+  border-radius: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-bar-border-main {
+  position: absolute;
+  border: 1px solid #ebe2cd;
+  border-style: solid;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+.search-bar-text-main {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-family: 'NanumMyeongjo', sans-serif;
+  justify-content: center;
+  line-height: 0;
+  left: 10px;
+  font-style: normal;
+  color: #6b5d4d;
+  font-size: 16px;
+  white-space: nowrap;
+  top: 21px;
+  transform: translateY(-50%);
+}
+
+.search-bar-placeholder-main {
+  line-height: normal;
+  white-space: pre;
+  margin: 0;
+}
+
+/* Menu Button Area */
+.menu-btn-area-main {
+  position: absolute;
+  height: 66px;
+  left: 0;
+  overflow: clip;
+  top: 0;
+  width: 60px;
+}
+
+/* SVG Styles */
+.svg-full {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

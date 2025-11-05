@@ -1,0 +1,62 @@
+/* 📌 1. 기본 설정 (모바일 < 768px): 절대 크기 + 확대 */
+.map-container {
+    /* 모바일에서 SVG가 보일 기본 영역 크기 (절대값) */
+    width: 3840px;
+    height: 2160px;
+    /* 확대 시 영역 이탈 방지 */
+    overflow: hidden;
+    /* SVG 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.map-svg {
+    width: 100%;
+    height: 100%;
+    /* 모바일에서 필요한 확대 비율 (예: 1.5배) */
+    transform: scale(1.5); 
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+/* 📌 2. 태블릿 이상 (768px): 확대 축소 */
+@media (min-width: 768px) {
+    /* 모바일 레이아웃 설정 복사/수정 */
+    .bottom-sheet-body {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0.9375rem 1.25rem;
+    }
+    
+    .map-svg {
+        /* 확대 비율을 줄여서 덜 확대된 상태로 만듦 (예: 1.2배) */
+        transform: scale(1.2); 
+    }
+}
+
+/* 📌 3. 데스크톱 이상 (1024px): 전체 너비 맞춤 */
+@media (min-width: 1024px) {
+    /* bottom-sheet-body 패딩 설정 복사/수정 */
+    .bottom-sheet-body {
+        padding: 1.25rem 2rem;
+    }
+
+    .map-container {
+        /* 절대 크기를 해제하고 남은 공간을 채우도록 설정 */
+        width: 100%;
+        /* 높이는 뷰포트 대비 비율로 설정하거나, flex/grid로 제어 */
+        height: 60vh; 
+        /* 확대/축소 비율이 없으므로 flex/grid 레이아웃에 맞춰짐 */
+    }
+
+    .map-svg {
+        /* transform 해제 (scale(1)로 원본 크기) */
+        transform: scale(1);
+        /* 100%를 유지하여 컨테이너를 가득 채움 (뷰포트에 맞게) */
+        width: 100%; 
+        height: 100%;
+    }
+}

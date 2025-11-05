@@ -1,0 +1,311 @@
+/* CSS Variables for responsive scaling - Mobile first */
+:root {
+  --detail-navbar-height: 4.1875rem;    /* 67px */
+  --detail-title-size: 1.5rem;          /* 24px */
+  --detail-img-height: 11.5rem;         /* 184px */
+  --detail-text-size: 0.75rem;          /* 12px */
+  --detail-time-size: 0.875rem;         /* 14px */
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+  :root {
+    --detail-navbar-height: 5rem;       /* 80px */
+    --detail-title-size: 1.75rem;       /* 28px */
+    --detail-img-height: 14rem;         /* 224px */
+    --detail-text-size: 0.875rem;       /* 14px */
+    --detail-time-size: 1rem;           /* 16px */
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  :root {
+    --detail-navbar-height: 5.5rem;     /* 88px */
+    --detail-title-size: 2rem;          /* 32px */
+    --detail-img-height: 16rem;         /* 256px */
+    --detail-text-size: 1rem;           /* 16px */
+    --detail-time-size: 1.125rem;       /* 18px */
+  }
+}
+
+/* Detail Page Container */
+.detail-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f9f5e5;
+}
+
+.detail-background {
+  position: absolute;
+  inset: 0;
+  background-color: #f9f5e5;
+  z-index: -1;
+}
+
+/* Detail NavBar */
+.detail-navbar {
+  position: relative;
+  width: 100%;
+  height: var(--detail-navbar-height);
+  background-color: #f9f5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #a39685;
+}
+
+.detail-nav-background {
+  position: absolute;
+  inset: 0;
+  background-color: #f9f5e5;
+  z-index: -1;
+}
+
+.detail-title-text {
+  font-family: 'NanumMyeongjo', serif;
+  font-weight: 600;
+  font-size: var(--detail-title-size);
+  letter-spacing: 0.075rem;
+  color: #554638;
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Back Button */
+.detail-back-btn {
+  position: absolute;
+  left: 1.0625rem;
+  width: 0.75rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-back-icon {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+/* Image Box */
+.detail-img-box {
+  position: relative;
+  width: 100%;
+  height: var(--detail-img-height);
+  overflow: hidden;
+}
+
+.detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info List */
+.detail-info-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.0625rem;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Info Box 공통 */
+.detail-info-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+/* Info Box 1 - 주소 & 별점 */
+.detail-info-box-1 {
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 3rem;
+}
+
+.detail-adr-distance-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-adr-text {
+  font-family: 'Gothic A1', sans-serif;
+  font-weight: 500;
+  font-size: var(--detail-text-size);
+  letter-spacing: 0.0375rem;
+  color: #554638;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.detail-distance-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-line-icon {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-line-circle {
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #b90c0c;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.detail-line-letter {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.5rem;
+  color: #f8f5e6;
+  position: relative;
+  z-index: 1;
+}
+
+.detail-distance-text {
+  font-family: 'Gothic A1', sans-serif;
+  font-weight: 500;
+  font-size: var(--detail-text-size);
+  letter-spacing: 0.0375rem;
+  color: #554638;
+  margin: 0;
+}
+
+.detail-rating-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.detail-star-icons {
+  display: flex;
+  gap: 0;
+}
+
+.detail-rating-count {
+  font-family: 'NanumSquareRound', sans-serif;
+  font-weight: 400;
+  font-size: 0.625rem;
+  letter-spacing: 0.03125rem;
+  color: #554638;
+  margin: 0;
+}
+
+/* Info Box 2 - 시간 & 태그 */
+.detail-info-box-2 {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-clock-icon-area {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.detail-clock-icon {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.detail-time-text {
+  font-family: 'NanumSquareRound', sans-serif;
+  font-weight: 700;
+  font-size: var(--detail-time-size);
+  letter-spacing: 0.04375rem;
+  color: #554638;
+  margin: 0;
+}
+
+.detail-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.detail-tag {
+  background-color: #eae3d5;
+  border-radius: 0.6875rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.detail-tag span {
+  font-family: 'NanumSquareRound', sans-serif;
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.0625rem;
+  color: #554638;
+}
+
+/* Info Box 3 - 전화번호 */
+.detail-info-box-3 {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detail-phone-icon-area {
+  width: 0.875rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.detail-phone-icon {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.detail-phone-text {
+  font-family: 'NanumSquareRound', sans-serif;
+  font-weight: 700;
+  font-size: var(--detail-time-size);
+  letter-spacing: 0.04375rem;
+  color: #554638;
+  margin: 0;
+}
+
+/* 반응형 - 태블릿 */
+@media (min-width: 768px) {
+  .detail-info-list {
+    padding: 0 1.5rem;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .detail-back-btn {
+    left: 1.5rem;
+  }
+}
+
+/* 반응형 - 데스크톱 */
+@media (min-width: 1024px) {
+  .detail-info-list {
+    padding: 0 2rem;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .detail-back-btn {
+    left: 2rem;
+  }
+}
