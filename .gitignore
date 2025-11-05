@@ -23,7 +23,3 @@ node_modules/
 *.njsproj
 *.sln
 *.sw?
-
-#svg exception 
-*.svg
-*.SVG
