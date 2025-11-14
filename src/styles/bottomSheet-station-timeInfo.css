@@ -1,0 +1,129 @@
+:root{
+	/*스타일 관련*/
+	--station-font: 'Nanum Gothic', sans-serif;
+	--content-font-color: #524436;
+	/*위치 크기 관련*/
+	--timeTable-tilte-container-height: 40px;
+	--timeTable-title-font-size: 20px;
+	--timeTable-title-border-weight: 2px;
+	--timeTable-info-container-padding: 4px;
+	--timeTable-info-font-size: 16px;
+}
+
+.timeTable-container{
+	/*위치 크기 관련*/
+	width: 100%;
+	height: auto;
+	/*내부 정렬 관련*/
+	display: flex;
+	flex-direction: column;
+}
+
+.timeTable-title-container{
+	/*스타일 관련*/
+	/*위치 크기 관련*/
+	position: relative;
+	width: 100%;
+	height: var(--timeTable-tilte-container-height);
+	/*내부 정렬 관련*/
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+/*타이틀 텍스트*/
+.timeTable-title-container span{
+	/*스타일 관련*/
+	font-family: var(--station-font);
+	color: var(--content-font-color);
+	/*위치 크기 관련*/
+	font-size: var(--timeTable-title-font-size);
+}
+
+/*타이틀 구분선*/
+.timeTable-title-container div{
+	/*스타일 관련*/
+	background: #B90C0C;
+	/*위치 크기 관련*/
+	position: absolute;
+	bottom: 0;
+	width: 90%;
+	height: var(--timeTable-title-border-weight);
+	
+}
+.timeTable-body-container{
+	/*내부 정렬 관련*/
+	display: flex;
+	flex-direction: column;
+}
+
+.timeTable-info-container{
+	/*위치 크기 관련*/
+	width: 100%;
+	/*내부 정렬 관련*/
+	display: flex;
+	/*여백 관련*/
+	padding-top: var(--timeTable-info-container-padding);
+}
+
+.timeTable-info-station{
+	/*위치 크기 관련*/
+	flex-grow: 121;
+	/*내부 정렬 관련*/
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*역 텍스트*/
+.timeTable-info-station span{
+	/*스타일 관련*/
+	font-family: var(--station-font);
+	color: var(--content-font-color);
+	/*위치 크기 관련*/
+	font-size: var(--timeTable-info-font-size);
+}
+
+.timeTable-info-leftTime{
+	/*위치 크기 관련*/
+	flex-grow: 55;
+	/*내부 정렬 관련*/
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/*남은 시간 텍스트*/
+.timeTable-info-leftTime span{
+	/*스타일 관련*/
+	font-family: var(--station-font);
+	color: var(--content-font-color);
+	/*위치 크기 관련*/
+	font-size: var(--timeTable-info-font-size);
+}
+
+/*반응형 설정*/
+
+/*768px 이상 (폴더블폰)에서의 반응형 설정*/
+@media screen and (min-width: 768px){
+  :root {
+  	/*위치 크기 관련*/
+	--timeTable-tilte-container-height: 50px;
+	--timeTable-title-font-size: 24px;
+	--timeTable-title-border-weight: 3px;
+	--timeTable-info-container-padding: 6px;
+	--timeTable-info-font-size: 20px;
+  }
+}
+
+/*1024px 이상 (태블릿)에서의 반응형 설정*/
+@media screen and (min-width: 1024px){
+  :root{
+  	/*위치 크기 관련*/
+	--timeTable-tilte-container-height: 40px;
+	--timeTable-title-font-size: 20px;
+	--timeTable-title-border-weight: 2px;
+	--timeTable-info-container-padding: 4px;
+	--timeTable-info-font-size: 16px;
+  }
+}

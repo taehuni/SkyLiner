@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>구름 아이콘</title>
+<!-- 
+    Overlapping Clouds Icon
+    - Style: Minimalist design to match the existing icon set.
+    - Color: A neutral grey (#BDBDBD) that fits the aesthetic.
+    - Composition: Two overlapping cloud shapes to create a sense of depth.
+-->
+<g id="Clouds">
+    <!-- 뒷배경 구름 -->
+    <path d="M43.7,44H21.2c-4.4,0-8-3.6-8-8c0-4.1,3.1-7.5,7.1-7.9c1.1-5.3,5.9-9.1,11.5-9.1c5.5,0,10.2,3.8,11.5,8.9c0.1,0,0.1,0,0.2,0c3.9,0,7,3.1,7,7C49.7,41.5,47.1,44,43.7,44z" fill="#BDBDBD"/>
+    <!-- 전경 구름 -->
+    <path d="M48.2,38H25.7c-4.4,0-8-3.6-8-8c0-4.1,3.1-7.5,7.1-7.9c1.1-5.3,5.9-9.1,11.5-9.1c6.5,0,11.7,5.2,11.7,11.7c0,0.1,0,0.2,0,0.3c3.8,0.2,6.8,3.4,6.8,7.2C55.2,34.9,52.1,38,48.2,38z" fill="#D3D3D3"/>
+</g>
+</svg>

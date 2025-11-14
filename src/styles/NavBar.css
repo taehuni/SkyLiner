@@ -1,136 +1,187 @@
-/* CSS Variables for responsive scaling - Mobile first (16px = 1rem) */
 :root {
-  --navbar-height: 4.125rem;        /* 66px */
-  --navbar-radius: 0.75rem;         /* 12px */
-  --btn-area-width: 3.75rem;        /* 60px */
-  --btn-icon-size: 2.0625rem;       /* 33px */
-  --searchbar-height: 2.625rem;     /* 42px */
-  --searchbar-radius: 0.375rem;     /* 6px */
-  --searchbar-padding: 0.625rem;    /* 10px */
-  --searchbar-font-size: 1rem;      /* 16px */
+  /*스타일 관련*/
+  --bg-color: #F7F2EA;
+  --serchbar-font: 'Nanum Myeongjo', Batang, serif; /*나눔명조 사용. 로딩 실패시 바탕 - serif순으로 적용*/
+  --searchbar-font-weight: 700;
+  --searchbar-font-color: #524436;
+  --searchbar-border-weight: 2px;
+  /*크기 관련*/
+  --navbar-container-width: 100%;
+  --navbar-container-height: 64px;
+  --navbar-radius: 16px;
+  --searchbar-radius: 8px;
+  --navbar-icon-size: 64px;
+  --icon-img-size: 32px;
+  --searchbar-font-size: 16px;
+  /*마진 관련*/
+  --padding-left-size: min(2vw, 10px);
 }
 
-/* Tablet and larger screens */
-@media (min-width: 768px) {
-  :root {
-    --navbar-height: 5rem;            /* 80px */
-    --navbar-radius: 0.875rem;        /* 14px */
-    --btn-area-width: 4.5rem;         /* 72px */
-    --btn-icon-size: 2.5rem;          /* 40px */
-    --searchbar-height: 3.25rem;      /* 52px */
-    --searchbar-radius: 0.5rem;       /* 8px */
-    --searchbar-padding: 0.875rem;    /* 14px */
-    --searchbar-font-size: 1.125rem;  /* 18px */
-  }
+/*아이콘 이미지 사이즈*/
+img {
+  /*스타일 관련*/
+  transition: 
+    background-color 0.3s ease;
+  /*위치 크기 관련*/
+  width: var(--icon-img-size);
+  height: var(--icon-img-size);
 }
 
-/* Desktop screens */
-@media (min-width: 1024px) {
-  :root {
-    --navbar-height: 5.5rem;          /* 88px */
-    --btn-area-width: 5rem;           /* 80px */
-    --btn-icon-size: 2.75rem;         /* 44px */
-    --searchbar-height: 3.5rem;       /* 56px */
-    --searchbar-font-size: 1.25rem;   /* 20px */
-  }
-}
-/* NavBar Container - Flexbox Layout */
-.navbar {
-  display: flex;
-  align-items: center;
-  background-color: #f7f2ea;
-  height: var(--navbar-height);
+/*네비게이션 바 컨테이너*/
+.navbar-container {
+  /*스타일 관련*/
+  background-color: var(--bg-color);
+  /*위치 및 크기 관련*/
+  position: absolute; /*절대 위치로 설정*/
+  top: 0;
+  right: 0;
+  width: var(--navbar-container-width);
+  height: var(--navbar-container-height);
+  /*테두리 관련*/
   border-bottom-left-radius: var(--navbar-radius);
   border-bottom-right-radius: var(--navbar-radius);
-  width: 100%;
-  /*position: relative;*/
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100; /* 추가 - BottomSheet(1000), MenuBar(2000)보다 낮음 */
+  /*내부 정렬 관련*/
+  display: flex; /*flex container로 요소 설정*/
+  align-items: center; /*높이 중앙 정렬*/
+  justify-content: space-between; /*flex item간 균일 간격부여*/
 }
 
-/* Menu Button Area - Left Side */
-.menu-btn-area {
+/*아이콘 컨테이너*/
+.nav-icon-container {
+  /*스타일 관련*/
+  background-color: transparent;
+  /*크기 관련*/
+  width: var(--navbar-icon-size);
+  height: var(--navbar-icon-size);
+  flex-shrink: 0; /*flex container 크기가 줄어도 해당 요소는 크기 유지*/
+  /*내부 정렬 관련*/
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: var(--btn-area-width);
+  /*커서 관련*/
+  cursor: grab;
+  /*테두리 관련*/
+  border: none;
+}
+
+.nav-icon-container:hover img{
+  background-color:#EBE2CD;
+}
+
+/*좌측 아이콘 컨테이너*/
+.icon-container-left{
+  border-bottom-left-radius: var(--navbar-radius);
+}
+
+/*우측 아이콘 컨테이너*/
+.icon-container-right{
+  border-bottom-right-radius: var(--navbar-radius);
+}
+
+/*검색창 컨테이너*/
+.search-box-container{
+  /*크기 관련*/
   height: 100%;
-}
-
-.menu-btn {
-  width: var(--btn-icon-size);
-  height: var(--btn-icon-size);
+  flex-grow: 1; /*flex container 크기가 늘어나면 해당 요소가 늘어남*/
+  /*내부 정렬 관련*/
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-/* Search Bar Area - Center (Flexible) */
-.menu-bar-area {
+/*검색창 입력 폼 관련*/
+form{
+  /*크기 관련*/
+  height: 70%;
+  flex-grow: 1;
+  /*내부 정렬 관련*/
   display: flex;
   align-items: center;
-  flex: 1;
-  height: 100%;
-  padding: 0.75rem 0;
 }
 
-.search-bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background-color: #f9f5e5;
-  height: var(--searchbar-height);
+input[type="text"]{
+  /*스타일 관련*/
+  background: #F7F2EA;
+  border: var(--searchbar-border-weight) solid #EBE2CD;
+  color: var(--searchbar-font-color);
+  font-family: var(--serchbar-font);
+  font-weight: var(--searchbar-font-weight);
+  /*크기 관련*/
   width: 100%;
-  border-radius: var(--searchbar-radius);
-  padding-left: var(--searchbar-padding);
-}
-
-.search-bar-border {
-  position: absolute;
-  border: 1px solid #ebe2cd;
-  inset: 0;
-  pointer-events: none;
-  border-radius: var(--searchbar-radius);
-}
-
-.search-bar-text {
-  font-family: 'NanumMyeongjo', serif;
-  color: #6b5d4d;
+  height: 70%;
   font-size: var(--searchbar-font-size);
-  white-space: nowrap;
-  line-height: 1;
+  /*테두리 관련*/
+  border-radius: var(--searchbar-radius);
+  /*마진 관련*/
+  padding-left: var(--padding-left-size);
+  /*전환 관련*/
+  transition: 
+    border-color 0.5s ease,
+    background-color 0.5s ease; /*0.5초동안 부드럽게*/
+
+  
+}
+/*검색창 포커스 부여시*/
+input[type="text"]:focus{
+  /*스타일 관련*/
+  outline: none; /*기본 border 포커싱 스타일 제거*/
+  color: var(--searchbar-font-color);
+  border: var(--searchbar-border-weight) solid #7E6C5A;
+  background-color: #FFFFFF;
 }
 
-.search-bar-placeholder {
-  margin: 0;
-  line-height: 1;
+/*검색창내 placeholder 스타일 부여*/
+/*Chrome, safari, Edge, opera용*/
+input[type="text"]::placeholder{
+  color: var(--searchbar-font-color);
+  font-family: var(--serchbar-font);
+  font-weight: var(--searchbar-font-weight);
+  font-size: var(--searchbar-font-size);
+  opacity: 1;
+}
+/*firefox용*/
+input[type="text"]::-moz-placeholder{
+  color: var(--searchbar-font-color);
+  font-family: var(--serchbar-font);
+  font-weight: var(--searchbar-font-weight);
+  font-size: var(--searchbar-font-size);
+  opacity: 1;
+}
+/*IE, Edge용*/
+input[type="text"]::-ms-input-placeholder{
+  color: var(--searchbar-font-color);
+  font-family: var(--serchbar-font);
+  font-weight: var(--searchbar-font-weight);
+  font-size: var(--searchbar-font-size);
 }
 
-/* Search Button Area - Right Side */
-.search-btn-area {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: var(--btn-area-width);
-  height: 100%;
+/*반응형 설정*/
+
+/*768px 이상 (폴더블폰)에서의 반응형 설정*/
+@media screen and (min-width: 768px){
+  :root {
+    /*스타일 관련*/
+    --searchbar-border-weight: 3px;
+    /*크기 관련*/
+    --navbar-container-height: 80px;
+    --navbar-radius: 20px;
+    --searchbar-radius: 10px;
+    --navbar-icon-size: 80px;
+    --icon-img-size: 40px;
+    --searchbar-font-size: 20px;
+    /*마진 관련*/
+  }
 }
 
-.search-btn {
-  width: var(--btn-icon-size);
-  height: var(--btn-icon-size);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* SVG Styles */
-.svg-full {
-  display: block;
-  width: 100%;
-  height: 100%;
+/*1024px 이상 (태블릿)에서의 반응형 설정*/
+@media screen and (min-width: 1024px){
+  :root{
+    /*크기 관련*/
+    --navbar-container-width: min(40%, 500px);
+    --navbar-radius: 0;
+    /*마진 관련*/
+    --padding-left-size: min(1vw, 10px);
+  }
+  .navbar-container{
+      left: 0;
+    }
 }

@@ -1,0 +1,37 @@
+/*Basic Template*/
+
+:root{
+	
+}
+
+/*768px 이상 (폴더블폰)에서의 반응형 설정*/
+@media screen and (min-width: 768px){
+  :root {
+
+  }
+}
+
+/*1024px 이상 (태블릿)에서의 반응형 설정*/
+@media screen and (min-width: 1024px){
+  :root{
+
+  }
+}
+
+
+
+/*반응형 설정 1 (40% 및 max 600px)*/
+
+/*1024px 이상 (태블릿)에서의 반응형 설정*/
+@media screen and (min-width: 1024px){
+  :root{
+    /*크기 관련*/
+    --navbar-container-width: min(40%, 600px);
+    --navbar-radius: 0;
+    /*마진 관련*/
+    --padding-left-size: min(1vw, 10px);
+  }
+  .navbar-container{
+      left: 0;
+    }
+}

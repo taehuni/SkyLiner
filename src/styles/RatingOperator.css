@@ -1,0 +1,70 @@
+:root{
+  /*스타일 관련*/
+  --font-myeongjo: 'Nanum Myeongjo', Batang, serif;
+  /*위치 사이즈 관련*/
+	--icon-size: 20px;
+  --count-text-size: 12px;
+}
+
+.rating-container{
+  /*내부 정렬 관련*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-icon-container{
+  /*위치 크기 관련*/
+  height: auto;
+  /*내부 정렬 관련*/
+  display: flex;
+  align-items: center;
+}
+
+.rating-icon{
+  /*스타일 관련*/
+  opacity: 0.3; /*기본 비활성화로 설정*/
+  /*위치 크기 관련*/
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.rating-icon.active{
+  opacity: 1.0; /*조건부 클래스로 활성*/
+}
+
+.rating-count-container{
+  /*내부 정렬 관련*/
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.rating-count-container span{
+  /*스타일 관련*/
+  font-family: var(--font-myeongjo);
+  color: #524436;
+  /*위치 크기 관련*/
+  font-size: var(--count-text-size);
+}
+
+/*반응형 설정*/
+
+/*768px 이상 (폴더블폰)에서의 반응형 설정*/
+@media screen and (min-width: 768px){
+  :root {
+    /*위치 사이즈 관련*/
+  --icon-size: 24px;
+  --count-text-size: 16px;
+  }
+}
+
+/*1024px 이상 (태블릿)에서의 반응형 설정*/
+@media screen and (min-width: 1024px){
+  :root{
+    /*위치 사이즈 관련*/
+  --icon-size: 20px;
+  --count-text-size: 12px;
+  }
+}
