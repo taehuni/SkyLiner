@@ -37,6 +37,7 @@ const Menubar = forwardRef(function Menubar({ menuCloseClick, navbarHeight }, re
 				</div>
 			</div>
 			<div className="shadow-container" onClick={menuCloseClick}></div>
+
 		</div>
 		);
 });

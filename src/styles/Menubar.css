@@ -24,27 +24,19 @@
   top: 0;
   /*내부 정렬 관련*/
   display: flex;
-  overflow: hidden;
-  z-index: 1000; /* 다른 콘텐츠 위에 표시 */
-  
-  /* ⭐️ 애니메이션 시작을 보장하기 위해 opacity와 visibility를 추가 */
-  visibility: hidden; 
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-
 }
 
+
 .shadow-container{
+  /*스타일 관련*/
+  background-color: black;
+  opacity: 0.2;
   /*위치 크기 관련*/
   height: 100%;
   flex: 4 1 40%; /*기본 비율 40% 및 grow 4 설정 */
-  /* ⭐️ transition 속성 추가: 애니메이션을 위한 필수 설정 */
-  transition: opacity 0.3s ease-in-out; 
-  /* 등장 시 최종 투명도 */
-  opacity: 1; 
-  background-color: rgba(0, 0, 0, 0.5); /* 투명도 50%의 검은색 배경 */
   
 }
+
 
 .menubar-flex-wrapper {
   flex: 6 0 60%; /* 이제 이 요소가 60% 공간을 차지합니다. */
@@ -61,10 +53,6 @@
   /*내부 정렬 관련*/
   display: flex;
   flex-direction: column;
-  /* ⭐️ transition 속성 추가: 애니메이션을 위한 필수 설정 */
-  transition: transform 0.3s ease-in-out; 
-  /* 등장 시 최종 위치 (화면 내) */
-  transform: translateX(0);
 }
 
 .menubar-head{
@@ -140,8 +128,6 @@
   border-bottom: 2px solid #DCD0B4;
 }
 
-
-
 .menubar-body-menu button{
   /*스타일 관련*/
   background-color: transparent;
@@ -210,57 +196,6 @@
 
 .menubar-tail-admin-button:hover{
   background-color: #EBE2CD;
-}
-
-
-
-/*애니메이션*/
-
-/* ⭐️ 등장 시: view-container를 보이게 하고 opacity를 1로 전환 */
-.menu-enter-active,
-.menu-enter-done { /* 등장 완료 후에도 유지 */
-    visibility: visible;
-    opacity: 1;
-}
-
-/* ⭐️ 퇴장 중: 투명하게 만들고 숨깁니다. */
-.menu-exit-active {
-    visibility: hidden;
-    opacity: 0;
-}
-
-/* --- Menubar Animated Content (슬라이드) --- */
-
-.menubar-container {
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(0); 
-}
-
-/* 등장 직전: 왼쪽 화면 밖 */
-.menu-enter .menubar-container {
-  transform: translateX(-100%); 
-}
-/* 등장 중: 원래 위치 */
-.menu-enter-active .menubar-container {
-  transform: translateX(0);
-}
-/* 퇴장 중: 왼쪽 화면 밖 */
-.menu-exit-active .menubar-container {
-  transform: translateX(-100%);
-}
-
-/* --- Shadow Container (페이드) --- */
-.shadow-container {
-  transition: opacity 0.3s ease-in-out; 
-}
-.menu-enter .shadow-container {
-  opacity: 0;
-}
-.menu-enter-active .shadow-container {
-  opacity: 1;
-}
-.menu-exit-active .shadow-container {
-  opacity: 0;
 }
 
 

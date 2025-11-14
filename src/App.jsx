@@ -3,16 +3,16 @@ import React, { useState, useCallback, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import NavBar from './components/Navbar.jsx';
 import StationBottomSheet from './components/bottomSheet-station.jsx';
+import MenubarWrap from './components/menubar-wrapper.jsx';
 import Menubar from './components/Menubar.jsx';
 
 function App() {
   const [menubarVisible, setMenubarVisible] = useState(false);//메뉴바 표시 상태 관리. 기본값 false
   const [navbarHeightValue, setNavbarHeight] = useState(0);//네비게이션 바 높이 저장할 상태 배열. 초기값 0
-const nodeRef = useRef(null);
+  const nodeRef = useRef(null);
   const heightHandleMeasure = useCallback((height) => {//높이 측정시 호출 할 callback함수
     setNavbarHeight(height);//네비게이션 바 높이를 상태에 업데이트 
   }, []);
-
   const openMenu = () => {//Navbar에서 메뉴 버튼 클릭 시 호출될 토글 함수
     setMenubarVisible(true);
   };
@@ -37,12 +37,19 @@ const nodeRef = useRef(null);
             navbarHeight={navbarHeightValue}
           />
         }*/} 
-        
+        <MenubarWrap
+          className="menubar-wrapper"
+          menuCloseClick={closeMenu}
+          navbarHeight={navbarHeightValue}
+          menubarVisible={menubarVisible}
+        />
         {/*react-transition-group 사용*/}
-        <CSSTransition
+        
+        {/*<CSSTransition
           in={menubarVisible}
           timeout={300}
           classNames="menu"
+          mountOnEnter
           unmountOnExit
           nodeRef={nodeRef}
         >
@@ -51,8 +58,7 @@ const nodeRef = useRef(null);
             menuCloseClick={closeMenu}
             navbarHeight={navbarHeightValue}
           />
-        </CSSTransition>
-        
+        </CSSTransition>*/}
       </div>
     </>
   )
