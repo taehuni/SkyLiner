@@ -1,0 +1,25 @@
+:root{
+	
+}
+
+.motionDiv{
+  width: 700px;
+}
+
+.StationBottomSheet{
+  width: 100%;
+}
+
+/*768px 이상 (폴더블폰)에서의 반응형 설정*/
+@media screen and (min-width: 768px){
+  :root {
+
+  }
+}
+
+/*1024px 이상 (태블릿)에서의 반응형 설정*/
+@media screen and (min-width: 1024px){
+  :root{
+
+  }
+}

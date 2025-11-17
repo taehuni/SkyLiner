@@ -1,0 +1,137 @@
+/* --- 변수 설정 --- */
+:root {
+    --gray-800: #1a1a1a;
+    --gray-600: #666;
+    --gray-100: #f4f4f4;
+    --primary: #ff6b00;
+}
+
+/* --- [First Content] 요약 영역 스타일 --- */
+.summary-container {
+    padding: 20px 24px;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    /* 섹션 구분선 */
+}
+
+.store-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-bottom: 8px;
+    flex-wrap: wrap;
+    /* 반응형: 공간 부족하면 줄바꿈 */
+}
+
+.store-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin: 0;
+}
+
+.store-category {
+    font-size: 13px;
+    color: var(--gray-600);
+}
+
+.store-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    padding-bottom: 12px;
+    color: var(--gray-600);
+}
+
+.store-meta .rating {
+    color: var(--gray-800);
+    font-weight: 600;
+}
+
+.store-meta .status.open {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* 태그 리스트: 높이 변화의 주범 */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* 핵심: 너비가 줄면 태그가 아래로 떨어짐 -> 높이 증가 */
+    gap: 6px;
+}
+
+.tag {
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* --- [Second Content] 상세 영역 스타일 --- */
+.details-container {
+    padding: 24px;
+    background-color: white;
+}
+
+.detail-section {
+    margin-bottom: 24px;
+}
+
+.detail-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--gray-800);
+}
+
+.description {
+    font-size: 14px;
+    line-height: 1.6;
+    /* 줄간격: 텍스트 줄바꿈 시 높이 변화 명확하게 함 */
+    color: var(--gray-600);
+    margin: 0;
+
+    /* 긴 텍스트 처리 */
+    word-break: keep-all;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 14px;
+}
+
+.action-button {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* --- [Responsive Check] --- */
+/* 화면이 360px(작은 폰) 이하일 때 폰트 조정 */
+@media (max-width: 360px) {
+    .store-title {
+        font-size: 18px;
+        /* 폰트가 작아지면 높이가 줄어듦 -> Observer가 감지 */
+    }
+
+    .summary-container {
+        padding: 16px 20px;
+    }
+}

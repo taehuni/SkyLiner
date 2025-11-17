@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 node_modules/
-package-lock.json
+
 
 # Editor directories and files
 .vscode/*
@@ -25,4 +25,6 @@ package-lock.json
 *.sln
 *.sw?
 
+package-lock.json
 legacySource/
+tempSource/

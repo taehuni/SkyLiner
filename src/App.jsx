@@ -2,9 +2,12 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import NavBar from './components/Navbar.jsx';
-import StationBottomSheet from './components/bottomSheet-station.jsx';
+//import StationBottomSheet from './components/bottomSheet-station.jsx';
 import MenubarWrap from './components/menubar-wrapper.jsx';
 import Menubar from './components/Menubar.jsx';
+import BottomSheet from './components/common/BottomSheet/';
+import { StoreSummary, StoreDetails } from './components/StoreInfo.jsx';
+//import BottomSheetWrapper from './components/bottomSheet-wrapper.jsx';
 
 function App() {
   const [menubarVisible, setMenubarVisible] = useState(false);//메뉴바 표시 상태 관리. 기본값 false
@@ -24,7 +27,12 @@ function App() {
   return (
     <>
       <div>
-        <StationBottomSheet navbarHeight={navbarHeightValue}/>{/*측정 값을 받기 위해 네비게이션 바에 콜백 함수 전달*/}
+        
+        {/*
+        <StationBottomSheet navbarHeight={navbarHeightValue}/>
+        <BottomSheetWrapper navbarHeight={navbarHeightValue}/>
+          
+        */}
         <NavBar
         onHeightCalc={heightHandleMeasure}/*핸들러 함수 전달*/
         menuOpenClick={openMenu}
@@ -60,6 +68,11 @@ function App() {
           />
         </CSSTransition>*/}
       </div>
+      <BottomSheet
+        // 1단 내용물 (요약)
+        firstContent={<StoreSummary />}
+        secondContent={<StoreDetails />}
+      />
     </>
   )
 }
