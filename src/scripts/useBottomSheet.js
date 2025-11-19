@@ -9,52 +9,35 @@ export const useBottomSheet = () => {
   const firstRowRef = useRef(null); // 첫 번째 줄 컨테이너
   //높이 상태 2개
   const [headerHeight, setHeaderHeight] = useState(0); // 측정된 헤더 높이
-  const [sheetHeight, setSheetHeight] = useState(0);
+  const [sheetHeight, setSheetHeight] = useState();
   const [firstRowHeight, setFirstRowHeight] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
   const y = useMotionValue(0);
 
-  // 전체 높이, 첫 번째 줄 높이 실시간 감지
-  /*useEffect(() => {
-    if (!sheetRef.current || !firstRowRef.current) return;
+  useEffect(() => {
+    // ResizeObserver 콜백 정의
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        if (entry.target === sheetRef.current) {
-          setSheetHeight(entry.contentRect.height); // 전체 컨테이너 높이 설정
-        } else if (entry.target === firstRowRef.current) {
-          setFirstRowHeight(entry.contentRect.height); // 첫 번째 줄 컨테이너 높이 설정
-        }
+        const height = entry.borderBoxSize
+          ? entry.borderBoxSize[0].blockSize
+          : entry.contentRect.height;
+        if (entry.target === sheetRef.current) setSheetHeight(height);
+        else if (entry.target === headerRef.current) setHeaderHeight(height);
+        else if (entry.target === firstRowRef.current)
+          setFirstRowHeight(height);
       }
     });
-    resizeObserver.observe(sheetRef.current);
-    resizeObserver.observe(firstRowRef.current);
-  }, []);*/
 
-  // useBottomSheet.js 수정
+    // [수정] 각 Ref가 존재할 때만 observe 수행
+    if (sheetRef.current)
+      resizeObserver.observe(sheetRef.current, { box: "border-box" });
+    if (headerRef.current)
+      resizeObserver.observe(headerRef.current, { box: "border-box" });
+    if (firstRowRef.current)
+      resizeObserver.observe(firstRowRef.current, { box: "border-box" });
 
-useEffect(() => {
-  // ref들이 연결되지 않았을 때 방어
-  if (!sheetRef.current || !firstRowRef.current || !headerRef.current) return;
-
-  const resizeObserver = new ResizeObserver((entries) => {
-    for (let entry of entries) {
-      const height = entry.borderBoxSize
-        ? entry.borderBoxSize[0].blockSize
-        : entry.contentRect.height;
-
-      if (entry.target === sheetRef.current) setSheetHeight(height);
-      else if (entry.target === headerRef.current)
-        setHeaderHeight(height); // 헤더 업데이트
-      else if (entry.target === firstRowRef.current) setFirstRowHeight(height);
-    }
-  });
-
-  resizeObserver.observe(sheetRef.current, { box: "border-box" });
-  resizeObserver.observe(headerRef.current, { box: "border-box" }); // 관찰 시작
-  resizeObserver.observe(firstRowRef.current, { box: "border-box" });
-
-  return () => resizeObserver.disconnect();
-}, []);
+    return () => resizeObserver.disconnect();
+  }, []); // 빈 배열 유지
 
   // 스냅 포인트 정밀 계산
   const SNAP_POINTS = {
@@ -64,14 +47,13 @@ useEffect(() => {
   };
 
   // 높이 변경시 현재 상태유지 로직
+  // 데스크톱 모드 일 경우 바텀 시트 위치 고정
+  // 높이 변경시 현재 상태유지 로직
   useEffect(() => {
-    if (isDesktop || sheetHeight === 0) return; //데스크톱일경우
-    // 현재 Y값이 어느 스냅 포인트에 가까운지 판단해서
-    // 내용물이 바뀌어도 그 "단계"를 유지하게 해주는 것이 UX상 좋음.
-    // 여기서는 단순화를 위해 기본적으로 COLLAPSED로 보정하거나,
-    // 혹은 현재 y.get()을 기준으로 가장 가까운 snap point로 재이동시키는 로직 추가 가능.
+    if (isDesktop || sheetHeight === 0) return;
 
-    // 예시: 높이가 바뀌면 일단 닫힘 상태 기준 재설정 (필요 시 수정 가능)
+    // [문제 상황] 이 코드가 주석 처리되어 있어서,
+    // 높이가 측정된 직후(0 -> 601.7)에 y값을 551.7로 이동시키는 명령이 실행되지 않을 수 있음
     // controls.start({ y: SNAP_POINTS.COLLAPSED });
   }, [sheetHeight, firstRowHeight, isDesktop]);
 
@@ -95,13 +77,15 @@ useEffect(() => {
   }, []);
 
   // 데스크톱 모드 일 경우 바텀 시트 위치 고정
-  useEffect(() => {
-    if (isDesktop) {
-      controls.start({ y: 0 });
-    } else {
-      controls.start({ y: SNAP_POINTS.COLLAPSED }); // 아닐 경우 메인 컨텐츠 높이 만큼만.
-    }
-  }, [isDesktop, controls, SNAP_POINTS.COLLAPSED]);
+ useEffect(() => {
+   if (isDesktop) {
+     controls.start({ y: 0 });
+   } else {
+     // 이 부분이 실행되어야 y가 551.7로 이동함
+     controls.start({ y: SNAP_POINTS.COLLAPSED });
+     console.log(SNAP_POINTS.COLLAPSED);
+   }
+ }, [isDesktop, controls, SNAP_POINTS.COLLAPSED]);
 
   const handleDragEnd = (event, info) => {
     if (isDesktop) return; // 데스크톱 모드일 경우 드래그 이벤트 미적용
@@ -144,7 +128,7 @@ useEffect(() => {
         targetY = SNAP_POINTS.COLLAPSED;
       }
     }
-
+    console.log(targetY);
     // 높이 계산후 애니메이션 실행
     controls.start({
       y: targetY,
@@ -155,6 +139,7 @@ useEffect(() => {
       },
     });
   };
+
   return {
     sheetRef,
     headerRef,

@@ -1,12 +1,12 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import NavBar from './components/Navbar.jsx';
+import NavBar from './components/common/Navbar/';
 //import StationBottomSheet from './components/bottomSheet-station.jsx';
-import MenubarWrap from './components/menubar-wrapper.jsx';
-import Menubar from './components/Menubar.jsx';
+import Menubar from './components/common/Menubar/';
 import BottomSheet from './components/common/BottomSheet/';
-import { StoreSummary, StoreDetails } from './components/StoreInfo.jsx';
+import { StoreSummary, StoreDetails } from './components/sampleData/StoreInfo.jsx';
+import './styles/App.css'
 //import BottomSheetWrapper from './components/bottomSheet-wrapper.jsx';
 
 function App() {
@@ -27,11 +27,9 @@ function App() {
   return (
     <>
       <div>
-        
         {/*
         <StationBottomSheet navbarHeight={navbarHeightValue}/>
         <BottomSheetWrapper navbarHeight={navbarHeightValue}/>
-          
         */}
         <NavBar
         onHeightCalc={heightHandleMeasure}/*핸들러 함수 전달*/
@@ -45,12 +43,7 @@ function App() {
             navbarHeight={navbarHeightValue}
           />
         }*/} 
-        <MenubarWrap
-          className="menubar-wrapper"
-          menuCloseClick={closeMenu}
-          navbarHeight={navbarHeightValue}
-          menubarVisible={menubarVisible}
-        />
+       
         {/*react-transition-group 사용*/}
         
         {/*<CSSTransition
@@ -67,12 +60,20 @@ function App() {
             navbarHeight={navbarHeightValue}
           />
         </CSSTransition>*/}
+
       </div>
       <BottomSheet
         // 1단 내용물 (요약)
         firstContent={<StoreSummary />}
         secondContent={<StoreDetails />}
       />
+      <Menubar
+        className="menubar-wrapper"
+        menuCloseClick={closeMenu}
+        navbarHeight={navbarHeightValue}
+        menubarVisible={menubarVisible}
+      />
+
     </>
   )
 }

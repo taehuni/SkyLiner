@@ -16,6 +16,40 @@
   --menubar-tail-height: 50px;
 }
 
+/*애니메이션 부분*/
+/*유의사항: opacity를 일관되게 정해주어야함.*/
+.menubar-transition-enter {
+  transform: translateX(-100%);
+  opacity: 1;
+}
+
+.menubar-transition-enter-active {
+  transform: translateX(0);
+  /* 요소의 왼쪽 모서리가 화면 좌측에 정렬됨 */
+  opacity: 1;
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.menubar-transition-enter-done {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menubar-transition-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menubar-transition-exit-active {
+  transform: translateX(-100%);
+  opacity: 1;
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+}
+
+.menubar-transition-exit-done {
+
+}
+
 .view-container{
   /*위치 크기 관련*/
   width: 100%;

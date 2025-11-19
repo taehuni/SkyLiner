@@ -1,6 +1,8 @@
 :root {
     --bottomsheet-headbar-width: 20%;
 }
+
+
 .bottomsheet-container{
     position: fixed;
     bottom: 0;
@@ -29,6 +31,7 @@
     /*테두리 관련*/
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
+    cursor: grab;
 }
 
 .bottomsheet-header-container div{
@@ -69,13 +72,8 @@
     flex-shrink: 0;
 }
 
-
-/*768px 이상 (폴더블폰)에서의 반응형 설정*/
-@media screen and (min-width: 768px) {
-    :root {}
-}
-
-/*1024px 이상 (태블릿)에서의 반응형 설정*/
 @media screen and (min-width: 1024px) {
-    :root {}
+    .bottomsheet-container{
+        width: min(40%, 500px);
+    }
 }

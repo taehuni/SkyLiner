@@ -1,8 +1,8 @@
 // Navbar.jsx
 import React, { useRef, useEffect } from 'react';
-import '../styles/Navbar.css';
-import MenuIcon from '../assets/icon-menu.svg';
-import SearchIcon from '../assets/icon-search.svg';
+import './Navbar.css';
+import MenuIcon from '../../../assets/icon-menu.svg';
+import SearchIcon from '../../../assets/icon-search.svg';
 
 //App.jsx로 부터 받은 콜백 함수 OnHeightCalc로 높이 계산후 전달함
 export default function Navbar({ onHeightCalc, menuOpenClick }){
