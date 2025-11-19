@@ -1,4 +1,5 @@
-import React, { forwardRef, useState, useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import './Menubar.css';
 import CloseIcon from '../../../assets/icon-close.svg';
@@ -6,11 +7,14 @@ import SettingIcon from '../../../assets/icon-setting.svg'
 
 
 export default function Menubar({ menuCloseClick, navbarHeight, menubarVisible }){
+		const navigate = useNavigate(); // 컴포넌트 최상위에서 훅을 먼저 호출, 변수에 담음.
 		const nodeRef = useRef(null);
 		const arguedStyle = {
 			"--rendered-navbar-height" : `${navbarHeight}px`, //--rendered-navbar-height로 css 변수 등록 px단위.
 		};
-
+		const NavigatePage = () =>{ 
+			navigate('/TrendPlace');//호출시 해당 react페이지로 이동
+		};
 		return(
 			<CSSTransition
 				in={menubarVisible}
@@ -35,7 +39,7 @@ export default function Menubar({ menuCloseClick, navbarHeight, menubarVisible }
 						</div>
 						<div className="menubar-body">
 							<div className="menubar-body-menu">
-								<button aria-label="트렌드 모음 이동">트렌드 모음</button>
+								<button aria-label="트렌드 모음 이동" onClick={NavigatePage}>트렌드 모음</button>
 							</div>
 						</div>
 						<div className="menubar-tail">
