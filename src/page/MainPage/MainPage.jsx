@@ -1,7 +1,8 @@
 import react, { useState, useCallback, useRef } from 'react';
 import Navbar from '../../components/common/Navbar/';
 import Menubar from '../../components/common/Menubar/';
-import BottomSheet from '../../components/common/BottomSheet';
+import BottomSheet from '../../components/common/BottomSheet/';
+import BaseMap from '../../assets/BaseMap';
 import { StoreSummary, StoreDetails } from '../../components/sampleData/StoreInfo.jsx';
 import './MainPage.css';
 
@@ -19,29 +20,41 @@ export default function MainPage(){
     const closeMenu = () => {
     setMenubarVisible(false);
     };
-    return(
-            <>
-                  <div>
-                    {/*
+    return (
+      <>
+        <BaseMap />
+        <Navbar
+          onHeightCalc={heightHandleMeasure} /*핸들러 함수 전달*/
+          menuOpenClick={openMenu}
+        />
+        <BottomSheet
+          // 1단 내용물 (요약)
+          firstContent={<StoreSummary />}
+          secondContent={<StoreDetails />}
+        />
+        <Menubar
+          className="menubar-wrapper"
+          menuCloseClick={closeMenu}
+          navbarHeight={navbarHeightValue}
+          menubarVisible={menubarVisible}
+        />
+          {/*
                     <StationBottomSheet navbarHeight={navbarHeightValue}/>
                     <BottomSheetWrapper navbarHeight={navbarHeightValue}/>
                     */}
-                    <Navbar
-                    onHeightCalc={heightHandleMeasure}/*핸들러 함수 전달*/
-                    menuOpenClick={openMenu}
-                    />
-                    {/* 기존 방식. menubarVisible의 true/false에 따라 컴포넌트 조건 렌더링*/}
-                    {/*{
+
+          {/* 기존 방식. menubarVisible의 true/false에 따라 컴포넌트 조건 렌더링*/}
+          {/*{
                       menubarVisible && 
                       <Menubar 
                         menuCloseClick={closeMenu}
                         navbarHeight={navbarHeightValue}
                       />
-                    }*/} 
-                   
-                    {/*react-transition-group 사용*/}
-                    
-                    {/*<CSSTransition
+                    }*/}
+
+          {/*react-transition-group 사용*/}
+
+          {/*<CSSTransition
                       in={menubarVisible}
                       timeout={300}
                       classNames="menu"
@@ -55,21 +68,6 @@ export default function MainPage(){
                         navbarHeight={navbarHeightValue}
                       />
                     </CSSTransition>*/}
-            
-                  </div>
-                  <BottomSheet
-                    // 1단 내용물 (요약)
-                    firstContent={<StoreSummary />}
-                    secondContent={<StoreDetails />}
-                  />
-                  <Menubar
-                    className="menubar-wrapper"
-                    menuCloseClick={closeMenu}
-                    navbarHeight={navbarHeightValue}
-                    menubarVisible={menubarVisible}
-                  />
-            
-                </>
-        
+      </>
     );
 }

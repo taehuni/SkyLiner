@@ -1,3 +1,83 @@
 :root{
-    
+    /*스타일 관련*/
+    --font-myeongjo: 'Nanum Myeongjo', Batang, serif;
+    --font-weight: 700;
+    --title-font-color: #524436;
+    /*위치 크기 관련*/
+    --header-container-width: 100%;
+    --header-container-height: 64px;
+    --header-img-size: 32px;
+    --title-font-size: 24px;
+}
+
+.header-container{
+    /*스타일 관련*/
+    background-color: #F7F2EA;
+    /*위치 크기 관련*/
+    width: var(--header-container-width);
+    height: var(--header-container-height);
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*내부 정렬 관련*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*테두리 관련*/
+    border-bottom: 2px solid #DCD0B4;
+}
+
+.header-btn{
+    /*스타일 관련*/
+    background-color: transparent;
+    /*위치 크기 관련*/
+    position: absolute;
+    width: var(--header-img-size);
+    height: var(--header-container-height);
+    top: 0;
+    left: 0;
+    /*내부 정렬 관련*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*테두리 관련*/
+    border: none;
+}
+
+.header-btn img{
+    /*위치 크기 관련*/
+    width: var(--header-img-size);
+    height: var(--header-img-size);
+    /*모션 관련*/
+    transition:
+        background-color 0.3s ease;
+}
+
+.header-btn:hover img{
+    /*스타일 관련*/
+    background-color: #EBE2CD;
+}
+
+.header-title{
+    /*스타일 관련*/
+    font-family: var(--font-myeongjo);
+    color: var(--title-font-color);
+    /*위치 크기 관련*/
+    font-size: var(--title-font-size);
+}
+
+
+@media screen and (min-width: 768px){
+    :root{
+        /*위치 크기 관련*/
+        --header-container-height: 80px;
+        --title-font-size: 28px;
+    }
+}
+@media screen and (min-width: 1024px){
+    :root{
+        /*위치 크기 관련*/
+        --header-container-width: min(40%, 500px);
+        --title-font-size: 24px;
+    }
 }

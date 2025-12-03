@@ -11,7 +11,7 @@ export const useBottomSheet = () => {
   const [headerHeight, setHeaderHeight] = useState(0); // 측정된 헤더 높이
   const [sheetHeight, setSheetHeight] = useState();
   const [firstRowHeight, setFirstRowHeight] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
+  //const [isDesktop, setIsDesktop] = useState(false);
   const y = useMotionValue(0);
 
   useEffect(() => {
@@ -49,13 +49,13 @@ export const useBottomSheet = () => {
   // 높이 변경시 현재 상태유지 로직
   // 데스크톱 모드 일 경우 바텀 시트 위치 고정
   // 높이 변경시 현재 상태유지 로직
-  useEffect(() => {
+  /*useEffect(() => {
     if (isDesktop || sheetHeight === 0) return;
 
     // [문제 상황] 이 코드가 주석 처리되어 있어서,
     // 높이가 측정된 직후(0 -> 601.7)에 y값을 551.7로 이동시키는 명령이 실행되지 않을 수 있음
     // controls.start({ y: SNAP_POINTS.COLLAPSED });
-  }, [sheetHeight, firstRowHeight, isDesktop]);
+  }, [sheetHeight, firstRowHeight, isDesktop]);*/
 
   //리사이즈시 반응형 감지
   useEffect(() => {
@@ -65,10 +65,10 @@ export const useBottomSheet = () => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     // 2. 변경 감지 핸들러
     const handleMediaChange = (e) => {
-      setIsDesktop(e.matches); // true or false
+      //setIsDesktop(e.matches); // true or false
     };
     // 3. 초기값 설정 (마운트 시점)
-    setIsDesktop(mediaQuery.matches);
+    //setIsDesktop(mediaQuery.matches);
     // 4. 리스너 등록 (Modern browsers)
     // addEventListener는 'change' 이벤트를 사용합니다.
     mediaQuery.addEventListener("change", handleMediaChange);
@@ -77,7 +77,7 @@ export const useBottomSheet = () => {
   }, []);
 
   // 데스크톱 모드 일 경우 바텀 시트 위치 고정
- useEffect(() => {
+ /*useEffect(() => {
    if (isDesktop) {
      controls.start({ y: 0 });
    } else {
@@ -85,10 +85,10 @@ export const useBottomSheet = () => {
      controls.start({ y: SNAP_POINTS.COLLAPSED });
      console.log(SNAP_POINTS.COLLAPSED);
    }
- }, [isDesktop, controls, SNAP_POINTS.COLLAPSED]);
+ }, [isDesktop, controls, SNAP_POINTS.COLLAPSED]);*/
 
   const handleDragEnd = (event, info) => {
-    if (isDesktop) return; // 데스크톱 모드일 경우 드래그 이벤트 미적용
+    //if (isDesktop) return; // 데스크톱 모드일 경우 드래그 이벤트 미적용
     const currentY = y.get(); // 현재의 절대 위치 (0 ~ 240)
     const velocity = info.velocity.y;
     const VELOCITY_THRESHOLD = 400; // 빠르게 스와이프 했는지 판단 기준값
@@ -147,7 +147,7 @@ export const useBottomSheet = () => {
     sheetHeight,
     controls,
     y, // 계산된 motionValue를 반환, 컴포넌트의 style에 연결해야 정상 동작
-    isDesktop,
+    //isDesktop,
     handleDragEnd,
     SNAP_POINTS,
   };

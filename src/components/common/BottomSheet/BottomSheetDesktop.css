@@ -1,0 +1,11 @@
+:root{
+
+}
+
+.bottomsheet-root{
+    width: min(40%, 500px);
+}
+
+.bottomsheet-header-container{
+    /*display: none;*/
+}

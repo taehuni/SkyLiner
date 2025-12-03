@@ -1,6 +1,7 @@
 import react from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TrendPlacePage.css';
+import BackBtn from '../../assets/icon-back.svg';
 export default function TrendPlacePage(){
     const navigate = useNavigate();
     const NavigatePage = () =>{ 
@@ -8,9 +9,14 @@ export default function TrendPlacePage(){
 		};
     return(
         <div>
-            <button aria-label="이전 페이지로" onClick={NavigatePage}>
-                뒤로 가기
-            </button>
+            <div className="header-container">
+                <div className="header-btn-container">
+                    <button aria-label="이전 페이지로" className="header-btn" onClick={NavigatePage}>
+                        <img src={BackBtn}></img>
+                    </button>
+                </div>
+                <div className="header-title">트렌드 모음</div>
+            </div>
         </div>
     );
 }

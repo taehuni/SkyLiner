@@ -1,1 +1,1 @@
-export { default } from "./BottomSheetMobile.jsx";
+export { default } from "./BottomSheet.jsx";
