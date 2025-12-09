@@ -18,7 +18,7 @@
 }
 
 /*아이콘 이미지 사이즈*/
-img {
+.nav-icon-container img {
   /*스타일 관련*/
   transition: 
     background-color 0.3s ease;

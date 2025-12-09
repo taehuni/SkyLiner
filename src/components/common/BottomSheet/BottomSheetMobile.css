@@ -1,5 +1,7 @@
 :root {
     --bottomsheet-headbar-width: 20%;
+    --window-width: var(currentWindowWidth);
+    --window-height: var(currentWindowheight);
 }
 
 
@@ -20,7 +22,7 @@
     /*스타일 관련*/
     background-color: #524436;
     /*위치 크기 관련*/
-    width: 100%;
+    width: 100vw;
     height: 50px;
     top: 0;
     flex-shrink: 0;

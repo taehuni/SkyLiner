@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { useAnimation, useMotionValue } from 'framer-motion';
+import { useAnimation, useMotionValue, useDragControls } from 'framer-motion';
 
 export const useBottomSheet = () => {
   const controls = useAnimation();
+  const dragControls = useDragControls();
   // DOM 측정용 ref
   const headerRef = useRef(null);
   const sheetRef = useRef(null); //전체 컨테이너
   const firstRowRef = useRef(null); // 첫 번째 줄 컨테이너
   //높이 상태 2개
   const [headerHeight, setHeaderHeight] = useState(0); // 측정된 헤더 높이
-  const [sheetHeight, setSheetHeight] = useState();
+  const [sheetHeight, setSheetHeight] = useState(0);
   const [firstRowHeight, setFirstRowHeight] = useState(0);
   //const [isDesktop, setIsDesktop] = useState(false);
   const y = useMotionValue(0);
@@ -41,21 +42,19 @@ export const useBottomSheet = () => {
 
   // 스냅 포인트 정밀 계산
   const SNAP_POINTS = {
-    EXPENDED: 0, // 전체 다 보임
-    HALF: sheetHeight - (headerHeight + firstRowHeight), // 전체 높이에서 헤더+첫 줄 높이를 뺀 만큼 내려감
-    COLLAPSED: sheetHeight - headerHeight, // 헤더만 남기고 다 내려감
+    EXPENDED: 0,
+    // 값이 유효하지 않을 경우를 대비한 기본값(0) 처리
+    HALF: sheetHeight ? sheetHeight - (headerHeight + firstRowHeight) : 0,
+    COLLAPSED: sheetHeight ? sheetHeight - headerHeight : 0,
   };
 
-  // 높이 변경시 현재 상태유지 로직
-  // 데스크톱 모드 일 경우 바텀 시트 위치 고정
-  // 높이 변경시 현재 상태유지 로직
-  /*useEffect(() => {
-    if (isDesktop || sheetHeight === 0) return;
+  useEffect(() => {
+    // 높이가 0이거나 측정되지 않았을 때는 실행하지 않음
+    if (sheetHeight === 0) return;
 
-    // [문제 상황] 이 코드가 주석 처리되어 있어서,
-    // 높이가 측정된 직후(0 -> 601.7)에 y값을 551.7로 이동시키는 명령이 실행되지 않을 수 있음
-    // controls.start({ y: SNAP_POINTS.COLLAPSED });
-  }, [sheetHeight, firstRowHeight, isDesktop]);*/
+    // 바텀시트를 아래(COLLAPSED 위치)로 이동
+    controls.start({ y: SNAP_POINTS.COLLAPSED });
+  }, [sheetHeight, firstRowHeight, controls, SNAP_POINTS.COLLAPSED]);
 
   //리사이즈시 반응형 감지
   useEffect(() => {
@@ -128,7 +127,7 @@ export const useBottomSheet = () => {
         targetY = SNAP_POINTS.COLLAPSED;
       }
     }
-    console.log(targetY);
+    //console.log(targetY);
     // 높이 계산후 애니메이션 실행
     controls.start({
       y: targetY,
@@ -150,5 +149,6 @@ export const useBottomSheet = () => {
     //isDesktop,
     handleDragEnd,
     SNAP_POINTS,
+    dragControls,
   };
 };

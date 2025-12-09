@@ -12,7 +12,7 @@ export default function BaseMapWrapper(){
     const MAX_PAN_Y = MAP_HEIGHT - VIEWPORT_WIDTH;
     const [posX, setPosX] = useState(0);
     const [posY, setPosY] = useState(0);
-    const [scale, setScale] = useState(1);
+    const [scale, setScale] = useState(0.7);
     const clickedNodeInfo = (nodeId) =>{
         console.log(nodeId);
     }

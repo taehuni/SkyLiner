@@ -1,0 +1,61 @@
+:root{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.card-body{
+    background-color: #fff;
+    border-radius: 12px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #DCD0B4;
+    margin-bottom: 2rem;
+}
+
+.card-header{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-wrapper{
+    display: flex;
+    justify-content: center;
+    border-bottom: 3px solid #DCD0B4;
+}
+
+.card-img{
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.card-content{
+    padding: 0 1rem;
+}
+
+.card-title{
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0.2rem 0;
+}
+
+.card-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.operating-hour .rating-score{
+    font-size: 1.5rem;
+    
+}
+
+.card-description{
+    margin-bottom: 1rem;
+}

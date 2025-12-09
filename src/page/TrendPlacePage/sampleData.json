@@ -1,0 +1,34 @@
+[
+  {
+    "id": "a1",
+    "name": "가게1",
+    "hours": "11:00-21:00",
+    "rating": 4.5,
+    "image_link": "https://www.andtrip.jp/images/974c245dc34cc158e8befa8d4969f5347d795d32.jpg",
+    "descrption": "최선의 서비스를 제공하기 위해 항상 노력하는 서비스 업체 입니다."
+  },
+  {
+    "id": "a2",
+    "name": "가게1",
+    "hours": "11:00-21:00",
+    "rating": 4.5,
+    "image_link": "https://upload.wikimedia.org/wikipedia/commons/6/60/Sotokanda%2C_Akihabara_Electric_Town_at_night_20231114.png",
+    "descrption": "가게1번"
+  },
+  {
+    "id": "a3",
+    "name": "가게1",
+    "hours": "11:00-21:00",
+    "rating": 4.5,
+    "image_link": "https://www.andtrip.jp/images/974c245dc34cc158e8befa8d4969f5347d795d32.jpg",
+    "descrption": "가게1번"
+  },
+  {
+    "id": "a4",
+    "name": "가게1",
+    "hours": "11:00-21:00",
+    "rating": 4.5,
+    "image_link": "https://www.andtrip.jp/images/974c245dc34cc158e8befa8d4969f5347d795d32.jpg",
+    "descrption": "가게1번"
+  }
+]

@@ -38,13 +38,13 @@ export default function MainPage(){
           navbarHeight={navbarHeightValue}
           menubarVisible={menubarVisible}
         />
-          {/*
+        {/*
                     <StationBottomSheet navbarHeight={navbarHeightValue}/>
                     <BottomSheetWrapper navbarHeight={navbarHeightValue}/>
                     */}
 
-          {/* 기존 방식. menubarVisible의 true/false에 따라 컴포넌트 조건 렌더링*/}
-          {/*{
+        {/* 기존 방식. menubarVisible의 true/false에 따라 컴포넌트 조건 렌더링*/}
+        {/*{
                       menubarVisible && 
                       <Menubar 
                         menuCloseClick={closeMenu}
@@ -52,9 +52,9 @@ export default function MainPage(){
                       />
                     }*/}
 
-          {/*react-transition-group 사용*/}
+        {/*react-transition-group 사용*/}
 
-          {/*<CSSTransition
+        {/*<CSSTransition
                       in={menubarVisible}
                       timeout={300}
                       classNames="menu"
