@@ -1,0 +1,94 @@
+[
+  {
+    "stationCode": "M01",
+    "stationName_kn": "오기쿠보",
+    "stationName_jn": "荻窪",
+    "stationLine": "마루노우치선",
+    "stationLineCode": "M",
+    "prevStationCode": "",
+    "nextStationCode": "M02",
+    "stationTimeTable_Weekend": [
+      {
+        "trainNumber": "A415K",
+        "departureTime": "05:27",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A501S",
+        "departureTime": "05:39",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A441E",
+        "departureTime": "05:50",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A996",
+        "departureTime": "20:41",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A997",
+        "departureTime": "20:52",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A998",
+        "departureTime": "21:00",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A999",
+        "departureTime": "22:00",
+        "trainDestination": "요요기우에하라"
+      }
+    ],
+    "stationTimeTable_Weekday": [
+      {
+        "trainNumber": "A415K",
+        "departureTime": "05:31",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A501S",
+        "departureTime": "05:40",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A441E",
+        "departureTime": "05:52",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A996",
+        "departureTime": "20:41",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A997",
+        "departureTime": "20:52",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A998",
+        "departureTime": "21:00",
+        "trainDestination": "요요기우에하라"
+      },
+      {
+        "trainNumber": "A999",
+        "departureTime": "22:00",
+        "trainDestination": "요요기우에하라"
+      }
+    ]
+  },
+  {
+    "stationCode": "M02",
+    "stationName_kn": "미나미아사가야",
+    "stationName_jn": "南朝萱",
+    "stationLine": "마루노우치선",
+    "stationLineCode": "M",
+    "prevStationCode" : "M01",
+    "nextStationCode" : "M03"
+  }
+]

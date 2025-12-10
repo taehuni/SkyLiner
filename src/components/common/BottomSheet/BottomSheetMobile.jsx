@@ -4,9 +4,11 @@ import { useBottomSheet } from './useBottomSheet.js';
 import { useBodyScrollLock } from '../../../scripts/useBodyScrollLock.js';
 import './BottomSheetMobile.css';
 
-export default function BottomSheetMobile({ isOpen, firstContent, secondContent, sheetMode, setSheetMode }){
+export default function BottomSheetMobile({ isOpen, contentData, sheetMode, setSheetMode }){
   //const isDesktop = useMediaQuery({ query: '(min0width: 1024px)' });
   // useBottomSheet.js에 sheet의 높이, 헤더 높이 전달
+  const {firstContent, secondContent} = contentData || {};
+
   const {
     sheetRef,
     headerRef,
@@ -64,7 +66,9 @@ export default function BottomSheetMobile({ isOpen, firstContent, secondContent,
         <div ref={firstRowRef} className="body-first-container">
           {firstContent}
         </div>
-        <div className="body-second-container">{secondContent}</div>
+        <div className="body-second-container">
+          {secondContent}
+        </div>
       </div>
     </motion.div>
   );

@@ -1,0 +1,148 @@
+:root{
+    --title-font-color: #1a1a1a;
+    --category-font-color: #666;
+    --bg-color: #F7F2EA;
+}
+
+.first-container{
+    padding: 16px 16px;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid #eee;
+}
+
+.first-station-header{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.first-title{
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--title-font-color);
+    margin: 0;
+}
+
+.first-category{
+    font-size: 13px;
+    color: var(--category-font-color);
+}
+
+.first-img-wrapper{
+    margin-left: auto;
+}
+
+.first-img{
+    width: 32px;
+    height: 32px;
+}
+
+.first-body-stationinfo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.first-staioninfo-before{
+    padding: 10px;
+    font-size: clamp(10px, 3vw, 20px);
+    font-weight: 800;
+    color: #696969;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex:1;
+}
+
+.first-stationinfo-current{
+    height: 100%;
+    font-size: clamp(16px, 5vw, 24px);
+    font-weight: 800;
+    color: #010203;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1.7;
+    border-left: 2px solid #524436;
+    border-right: 2px solid #524436;
+}
+
+.first-stationinfo-next{
+    padding: 10px;
+    font-size: clamp(10px, 3vw, 20px);
+    font-weight: 800;
+    color: #696969;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.first-body-timeinfo{
+    display: flex;
+    
+}
+
+.timeinfo-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeinfo-header{
+    width: 90%;
+    font-size: clamp(12px, 4vw, 16px);
+    color: #010203;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid #B90C0C;
+}
+
+.timeinfo-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-cell{
+    display: flex;
+    gap: 8px;
+}
+
+.destination-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-size: clamp(10px, 4vw, 20px);
+}
+
+.lefttime-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(10px, 4vw, 20px);
+}
+
+.second-container{
+    padding: 16px 8px;
+    background-color: #696969;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+}
+.second-header{/*예비용으로 남김.*/
+    display: none;
+}
+
+.second-body{
+    
+}

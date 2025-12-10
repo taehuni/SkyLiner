@@ -14,7 +14,7 @@ export default function BaseMapWrapper({ onNodeClick }) {
   const [posY, setPosY] = useState(0);
   const [scale, setScale] = useState(0.7);
   const clickedNodeInfo = (nodeId) => {
-    //console.log(nodeId);
+    //console.log("BaseMap// Node Id:",nodeId.trim());
     if(onNodeClick){//부모 핸들러에 클릭된 ID 전탈
       onNodeClick(nodeId);
     }
