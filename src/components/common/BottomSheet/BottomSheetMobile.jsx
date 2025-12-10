@@ -34,7 +34,7 @@ export default function BottomSheetMobile({ isOpen, contentData, sheetMode, setS
         y,
         visibility: sheetHeight === 0 ? "hidden" : "visible",
         //height: isDesktop ? '100%' : 'auto', //모바일인 경우 높이 auto, 데스크톱은 100%
-        maxHeight: '90vh',
+        maxHeight: "90vh",
         //display: isDesktop ? 'none' : 'flex',
       }} // 모바일 높이 설정
       animate={controls}
@@ -54,11 +54,11 @@ export default function BottomSheetMobile({ isOpen, contentData, sheetMode, setS
       dragElastic={0.1} //고무줄 효과
       onDragEnd={handleDragEnd} //드래그 끝나는 순간에만 높이 결정
     >
-      <div 
-      ref={headerRef}
-      className="bottomsheet-header-container"
-      style={{ overflowY: 'auto'}}
-      onPointerDown={(e)=>dragControls.start(e)}
+      <div
+        ref={headerRef}
+        className="bottomsheet-header-container"
+        style={{ touchAction: "none" }}
+        onPointerDown={(e) => dragControls.start(e)}
       >
         <div></div>
       </div>
@@ -66,9 +66,7 @@ export default function BottomSheetMobile({ isOpen, contentData, sheetMode, setS
         <div ref={firstRowRef} className="body-first-container">
           {firstContent}
         </div>
-        <div className="body-second-container">
-          {secondContent}
-        </div>
+        <div className="body-second-container">{secondContent}</div>
       </div>
     </motion.div>
   );

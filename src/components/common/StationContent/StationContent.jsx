@@ -15,7 +15,7 @@ export const StationFirstContent = ({ data } = {}) =>{
     const nextStationNameKr = useStationInfoLoader(data?.nextStationCode);
     const now = new Date();
     const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-    const timeList = sliceStationInfoByTime(data?.stationCode, 3, currentTime, "Weekday");
+    const timeList = sliceStationInfoByTime(data?.stationCode, 3, "19:00", "Weekday");
     //console.log("TestList: ", timeList);
     
 

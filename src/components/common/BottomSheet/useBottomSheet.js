@@ -28,7 +28,26 @@ export const useBottomSheet = ({ sheetMode, setSheetMode } = {}) => {
   useEffect(() => {
     // ResizeObserver 콜백 정의
     const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+        window.requestAnimationFrame(() => {
+        for (let entry of entries) {
+          // 크롬 구버전 등 호환성 체크
+          let height = 0;
+          if (entry.borderBoxSize) {
+             // borderBoxSize가 배열인지 확인 후 접근
+             const borderBoxSize = Array.isArray(entry.borderBoxSize) 
+                ? entry.borderBoxSize[0] 
+                : entry.borderBoxSize;
+             height = borderBoxSize.blockSize;
+          } else {
+             height = entry.contentRect.height;
+          }
+
+          if (entry.target === sheetRef.current) setSheetHeight(height);
+          else if (entry.target === headerRef.current) setHeaderHeight(height);
+          else if (entry.target === firstRowRef.current) setFirstRowHeight(height);
+        }
+      });
+      /*for (let entry of entries) {
         const height = entry.borderBoxSize
           ? entry.borderBoxSize[0].blockSize
           : entry.contentRect.height;
@@ -36,7 +55,7 @@ export const useBottomSheet = ({ sheetMode, setSheetMode } = {}) => {
         else if (entry.target === headerRef.current) setHeaderHeight(height);
         else if (entry.target === firstRowRef.current)
           setFirstRowHeight(height);
-      }
+      }*/
     });
     // [수정] 각 Ref가 존재할 때만 observe 수행
     if (sheetRef.current)
@@ -48,7 +67,7 @@ export const useBottomSheet = ({ sheetMode, setSheetMode } = {}) => {
 
     return () => resizeObserver.disconnect();
   }, []); // 빈 배열 유지
-
+  
   // 스냅 포인트 정밀 계산
 
   useEffect(() => {
