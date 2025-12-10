@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useAnimation, useMotionValue, useDragControls } from 'framer-motion';
 
-export const useBottomSheet = () => {
+export const useBottomSheet = ({ sheetMode, setSheetMode } = {}) => {
+  //console.log(sheetMode);
   const controls = useAnimation();
   const dragControls = useDragControls();
   // DOM 측정용 ref
@@ -14,6 +15,15 @@ export const useBottomSheet = () => {
   const [firstRowHeight, setFirstRowHeight] = useState(0);
   //const [isDesktop, setIsDesktop] = useState(false);
   const y = useMotionValue(0);
+
+  const SNAP_POINTS = useMemo(() => {
+    return {
+      EXPENDED: 0,
+      // 값이 유효하지 않을 경우를 대비한 기본값(0) 처리
+      HALF: sheetHeight ? sheetHeight - (headerHeight + firstRowHeight) : 0,
+      COLLAPSED: sheetHeight ? sheetHeight - headerHeight : 0,
+    };
+  }, [sheetHeight, headerHeight, firstRowHeight]); // 👈 의존성 배열: 이 값들이 바뀔 때만 SNAP_POINTS 갱신
 
   useEffect(() => {
     // ResizeObserver 콜백 정의
@@ -28,7 +38,6 @@ export const useBottomSheet = () => {
           setFirstRowHeight(height);
       }
     });
-
     // [수정] 각 Ref가 존재할 때만 observe 수행
     if (sheetRef.current)
       resizeObserver.observe(sheetRef.current, { box: "border-box" });
@@ -41,12 +50,6 @@ export const useBottomSheet = () => {
   }, []); // 빈 배열 유지
 
   // 스냅 포인트 정밀 계산
-  const SNAP_POINTS = {
-    EXPENDED: 0,
-    // 값이 유효하지 않을 경우를 대비한 기본값(0) 처리
-    HALF: sheetHeight ? sheetHeight - (headerHeight + firstRowHeight) : 0,
-    COLLAPSED: sheetHeight ? sheetHeight - headerHeight : 0,
-  };
 
   useEffect(() => {
     // 높이가 0이거나 측정되지 않았을 때는 실행하지 않음
@@ -75,8 +78,27 @@ export const useBottomSheet = () => {
     return () => mediaQuery.removeEventListener("change", handleMediaChange);
   }, []);
 
+  /*const SNAP_POINTS = useMemo(()=>){
+    EXPENDED: 0,
+    // 값이 유효하지 않을 경우를 대비한 기본값(0) 처리
+    HALF: sheetHeight ? sheetHeight - (headerHeight + firstRowHeight) : 0,
+    COLLAPSED: sheetHeight ? sheetHeight - headerHeight : 0,
+  };*/
+
+  useEffect(() => {
+    if (!sheetMode || sheetHeight === 0) return;
+
+    if (sheetMode === "EXPANDED") {
+      controls.start({ y: SNAP_POINTS.EXPANDED });
+    } else if (sheetMode === "HALF") {
+      controls.start({ y: SNAP_POINTS.HALF });
+    } else if (sheetMode === "COLLAPSED") {
+      controls.start({ y: SNAP_POINTS.COLLAPSED });
+    }
+  }, [sheetMode, sheetHeight, SNAP_POINTS, controls]);
+
   // 데스크톱 모드 일 경우 바텀 시트 위치 고정
- /*useEffect(() => {
+  /*useEffect(() => {
    if (isDesktop) {
      controls.start({ y: 0 });
    } else {
@@ -93,7 +115,7 @@ export const useBottomSheet = () => {
     const VELOCITY_THRESHOLD = 400; // 빠르게 스와이프 했는지 판단 기준값
     //let targetState = "COLLAPSED";
     let targetY = SNAP_POINTS.COLLAPSED;
-
+    let newMode = "COLLAPSED"; //변경할 모드를 저장할 변수
     //스와이프 속도, 위치에 따른 높이 계산 로직
     if (Math.abs(velocity) > VELOCITY_THRESHOLD) {
       // 스와이프 속도가 빠를 때 로직
@@ -101,15 +123,19 @@ export const useBottomSheet = () => {
         //위로 빠르게 스와이프 했을 경우
         if (currentY > SNAP_POINTS.HALF) {
           targetY = SNAP_POINTS.HALF; // 닫힘 포인트 근처면 중간 높이로
+          newMode = "HALF";
         } else {
           targetY = SNAP_POINTS.EXPENDED; // 중간 포인트 근처면 완전 열림으로
+          newMode = "EXPENDED";
         }
       } else {
         if (currentY < SNAP_POINTS.HALF) {
           // 아래로 빠르게 스와이프 했을 경우
           targetY = SNAP_POINTS.HALF; // 완전 열림 근처면 중간으로
+          newMode = "HALF";
         } else {
           targetY = SNAP_POINTS.COLLAPSED; // 중간 근처면 닫힘으로
+          newMode = "COLLAPSED";
         }
       }
     } else {
@@ -121,11 +147,17 @@ export const useBottomSheet = () => {
       //가장 가까운 지점 선택후 열림 정도 지정
       if (distToExpanded < distToHalf && distToExpanded < distToCollapsed) {
         targetY = SNAP_POINTS.EXPENDED;
+        newMode = "EXPENDED";
       } else if (distToHalf < distToExpanded && distToHalf < distToCollapsed) {
         targetY = SNAP_POINTS.HALF;
+        newMode = "HALF";
       } else {
         targetY = SNAP_POINTS.COLLAPSED;
+        newMode = "COLLAPSED";
       }
+    }
+    if(setSheetMode){
+      setSheetMode(newMode); // 드래그로 변경한 상태를 부모에게 전달
     }
     //console.log(targetY);
     // 높이 계산후 애니메이션 실행

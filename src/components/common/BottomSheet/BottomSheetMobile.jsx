@@ -4,7 +4,7 @@ import { useBottomSheet } from './useBottomSheet.js';
 import { useBodyScrollLock } from '../../../scripts/useBodyScrollLock.js';
 import './BottomSheetMobile.css';
 
-export default function BottomSheetMobile({ isOpen, firstContent, secondContent }){
+export default function BottomSheetMobile({ isOpen, firstContent, secondContent, sheetMode, setSheetMode }){
   //const isDesktop = useMediaQuery({ query: '(min0width: 1024px)' });
   // useBottomSheet.js에 sheet의 높이, 헤더 높이 전달
   const {
@@ -18,8 +18,9 @@ export default function BottomSheetMobile({ isOpen, firstContent, secondContent 
     handleDragEnd,
     SNAP_POINTS,
     dragControls,
-  } = useBottomSheet();
-  console.log("currentY:", y);
+  } = useBottomSheet({ sheetMode, setSheetMode });
+
+  //console.log("currentY:", y);
   useBodyScrollLock(isOpen);
 
   return (

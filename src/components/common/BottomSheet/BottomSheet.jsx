@@ -5,7 +5,7 @@ import BottomSheetDesktop from './BottomSheetDesktop.jsx';
 
 export default function BottomSheet(props){
     const { isDesktop, isMobile } = useScreenMode();
-    console.log(isDesktop, isMobile);
+    //console.log(isDesktop, isMobile);
     if(isDesktop){
         //return(<BottomSheetDesktop {...props}/>);
     }else{
