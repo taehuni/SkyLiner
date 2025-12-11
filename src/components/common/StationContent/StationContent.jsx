@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './StationContent.css'
 import { LINE_ICONS } from '../../../scripts/useLineIcons.js';
 import  { useStationInfoLoader } from '../../../scripts/useStationInfoLoader.js';
 import { sliceStationInfoByTime } from '../../../scripts/sliceStationInfoByTime.js';
-import { pre } from 'motion/react-client';
+import ClockIcon from '../../../assets/icon-clock.svg';
 
 export const StationFirstContent = ({ data } = {}) =>{
-    //onsole.log("[StationContent.jsx] First: ", data.stationName_kn);
-
+    //console.log("[StationContent.jsx] First: ", data.stationName_kn);
+    const [selectedMenuId, setSelectedMenuId] = useState(data?.stationLineCode || "M");
     const imglink = LINE_ICONS[data?.stationLineCode];
-    const lineName = data?.stationLine || "정보 없음";
+    const lineName = data?.stationLine || "노선 정보 없음";
     const stationNameKr = data?.stationName_kn || "역 정보 없음";
     const prevStationNameKr = useStationInfoLoader(data?.prevStationCode);
     const nextStationNameKr = useStationInfoLoader(data?.nextStationCode);
+    const menuBtnList = data?.connectingRailWayInfo;
+    const showLineSelector = menuBtnList && menuBtnList.length > 0;
+
     const now = new Date();
     const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
     const timeList = sliceStationInfoByTime(data?.stationCode, 3, "19:00", "Weekday");
     //console.log("TestList: ", timeList);
-    
+    useEffect(() => {
+      if (data?.stationLineCode) {
+        setSelectedMenuId(data.stationLineCode);
+      }
+    }, [data]);
+
 
     //console.log(prevStationNameKr, nextStationNameKr);
     return (
@@ -31,6 +39,24 @@ export const StationFirstContent = ({ data } = {}) =>{
             )}
           </div>
         </div>
+        {showLineSelector && (
+          <div className="first-line-selector">
+            <div className="line-selector-container">
+              {menuBtnList.map((i) => (
+                <button
+                  key={i.lineCode}
+                  className={`line-menu-btn ${
+                    selectedMenuId === i.lineCode ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedMenuId(i.lineCode)}
+                >
+                  {i.lineName}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="first-body">
           <div className="first-body-stationinfo">
             <div className="first-staioninfo-before">
@@ -75,13 +101,19 @@ export const StationFirstContent = ({ data } = {}) =>{
 };
 
 export const StationSecondContent = ({ data } = {}) => {
-  return(
+  return (
     <div className="second-container">
-      <div className='second-header'>
+      <div className="second-header">
+        {/*display:none 부여. 현재 표시 x*/}
         head
       </div>
-      <div className='second-body'>
-        Second session body
+      <div className="second-body">
+        <div className="second-row1">
+          <img src={ClockIcon} className="row1-clock-icon" />
+          Second session body
+        </div>
+        <div className="second-row2">row2</div>
+        <div className="second-row3">row3</div>
       </div>
     </div>
   );

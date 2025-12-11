@@ -7,6 +7,24 @@
     "stationLineCode": "M",
     "prevStationCode": "",
     "nextStationCode": "M02",
+    "connectingRailWayInfo":[
+      {
+        "lineCode": "Mb",
+        "lineName" : "마루노우치선 분기선"
+      },
+      {
+        "lineCode": "H",
+        "lineName" : "히비야선"
+      },
+      {
+        "lineCode": "K",
+        "lineName" : "케이큐선"
+      },
+      {
+        "lineCode" : "G",
+        "lineName" : "긴자선"
+      }
+    ],
     "stationTimeTable_Weekend": [
       {
         "trainNumber": "A415K",
@@ -90,5 +108,28 @@
     "stationLineCode": "M",
     "prevStationCode" : "M01",
     "nextStationCode" : "M03"
+  },
+  {
+    "stationCode": "Mb03",
+    "stationName_kn": "호난초",
+    "stationName_jn": "歩難聴",
+    "stationLine": "마루노우치선 분기선",
+    "stationLineCode": "Mb",
+    "prevStationCode": "",
+    "nextStationCode": "Mb04",
+    "connectingRailWayInfo": [
+      {
+        "lineCode": "H",
+        "lineName": "히비야선"
+      },
+      {
+        "lineCode": "K",
+        "lineName": "케이큐선"
+      },
+      {
+        "lineCode": "G",
+        "lineName": "긴자선"
+      }
+    ]
   }
 ]
