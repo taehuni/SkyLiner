@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import stationSampleData from "../sampleData/stationSampleData.json";
+import { getNextTrains } from '../utils/api';
 
 export const sliceStationInfoByTime = (stationCode, count=3, time="99:99", week="none") => {
   const [stationArr, setStationArr] = useState(null);
@@ -41,19 +41,29 @@ export const sliceStationInfoByTime = (stationCode, count=3, time="99:99", week=
   useEffect(() => {
     //console.log("[sliceStationInfoByTime.js]", "code:", stationCode, "count:", count, "current:", currentTime, "mode:", dateMode);
     if (stationCode != "" && time != null && count > 0) {
-      const selectedObj = stationSampleData.find(
-        (i) => i.stationCode === stationCode
-      );
-      if (selectedObj[dateMode]) {
-        const selectedArr = selectedObj[dateMode]
-          .filter((i) => i.departureTime >= currentTime)
-          .slice(0, count);
-        //console.log("[sliceStationInfoByTime.js] arr", selectedArr);
-        setStationArr(selectedArr);
-      }else{
-        console.log("[sliceStationInfoByTime.js] Data Not Found");
-        setStationArr([]);
-      }
+      const fetchTimetable = async () => {
+        try {
+          const calendarType = dateMode === "stationTimeTable_Weekend" ? 'holiday' : 'weekday';
+          const response = await getNextTrains(stationCode, { calendarType, count });
+
+          if (response.success && response.data && response.data.nextTrains) {
+            const selectedArr = response.data.nextTrains.map(train => ({
+              trainNumber: train.trainCode,
+              departureTime: train.departureTime,
+              trainDestination: train.destinationNameKo || train.destinationStation,
+              railDirection: train.railDirection
+            }));
+            setStationArr(selectedArr);
+          } else {
+            console.log("[sliceStationInfoByTime.js] Data Not Found");
+            setStationArr([]);
+          }
+        } catch (error) {
+          console.error("[sliceStationInfoByTime.js] API Error:", error);
+          setStationArr([]);
+        }
+      };
+      fetchTimetable();
     } else {
       console.log("[sliceStationInfoByTime.js] Data Not Found");
       setStationArr([]);

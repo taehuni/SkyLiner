@@ -5,26 +5,67 @@ import  { useStationInfoLoader } from '../../../scripts/useStationInfoLoader.js'
 import { sliceStationInfoByTime } from '../../../scripts/sliceStationInfoByTime.js';
 import ClockIcon from '../../../assets/icon-clock.svg';
 
-export const StationFirstContent = ({ data } = {}) =>{
+export const StationFirstContent = ({ data, onStationChange } = {}) =>{
     //console.log("[StationContent.jsx] First: ", data.stationName_kn);
     const [selectedMenuId, setSelectedMenuId] = useState(data?.stationLineCode || "M");
-    const imglink = LINE_ICONS[data?.stationLineCode];
-    const lineName = data?.stationLine || "노선 정보 없음";
+    const [selectedStationCode, setSelectedStationCode] = useState(data?.stationCode);
+
+    // 환승역/분기선: allLines가 2개 이상이면 같은 역의 다른 노선
+    const allLines = data?.allLines || [];
+
+    // 다른 노선인지 확인 (같은 노선 분기선은 제외)
+    // M과 Mb는 같은 노선으로 간주 (소문자 제거)
+    const uniqueLineGroups = [...new Set(allLines.map(l => l.lineCode.replace(/[a-z]/g, '')))];
+    const hasMultipleLines = uniqueLineGroups.length > 1;
+
+    // 선택된 노선의 정보 가져오기
+    const selectedLine = hasMultipleLines
+      ? allLines.find(line => line.lineCode === selectedMenuId) || allLines[0]
+      : null;
+
+    const imglink = LINE_ICONS[selectedMenuId];
+    const lineName = selectedLine?.lineName || data?.stationLine || "노선 정보 없음";
     const stationNameKr = data?.stationName_kn || "역 정보 없음";
-    const prevStationNameKr = useStationInfoLoader(data?.prevStationCode);
-    const nextStationNameKr = useStationInfoLoader(data?.nextStationCode);
-    const menuBtnList = data?.connectingRailWayInfo;
-    const showLineSelector = menuBtnList && menuBtnList.length > 0;
+    const currentStationCode = selectedLine?.stationCode || data?.stationCode;
+
+    // 선택된 노선의 이전/다음 역 정보
+    const prevCode = selectedLine?.prevStationCode || data?.prevStationCode;
+    const nextCode = selectedLine?.nextStationCode || data?.nextStationCode;
+
+    const prevStationNameKr = useStationInfoLoader(prevCode);
+    const nextStationNameKr = useStationInfoLoader(nextCode);
+
+    // 환승역/분기선(같은 역에 여러 노선)일 때만 line selector 표시
+    const menuBtnList = hasMultipleLines ? allLines : [];
+    const showLineSelector = hasMultipleLines;
+
+    const handleLineChange = (lineCode, stationCode) => {
+      setSelectedMenuId(lineCode);
+      setSelectedStationCode(stationCode);
+
+      // 환승역/분기선이 아닌 경우만 onStationChange 호출
+      if (!hasMultipleLines && onStationChange && stationCode) {
+        onStationChange(stationCode);
+      }
+    };
 
     const now = new Date();
     const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-    const timeList = sliceStationInfoByTime(data?.stationCode, 3, "19:00", "Weekday");
+    // 선택된 노선의 stationCode로 시간표 조회 (현재 시간 기준)
+    const timeList = sliceStationInfoByTime(currentStationCode, 10, currentTime, "Weekday");
+
+    // 방향별로 시간표 분리
+    const forwardTrains = timeList?.filter(t => t.railDirection === 'forward').slice(0, 3) || [];
+    const backwardTrains = timeList?.filter(t => t.railDirection === 'backward').slice(0, 3) || [];
     //console.log("TestList: ", timeList);
+
     useEffect(() => {
+      // 역이 변경될 때마다 해당 역의 노선으로 초기화
       if (data?.stationLineCode) {
         setSelectedMenuId(data.stationLineCode);
+        setSelectedStationCode(data.stationCode);
       }
-    }, [data]);
+    }, [data?.stationCode]);
 
 
     //console.log(prevStationNameKr, nextStationNameKr);
@@ -48,7 +89,7 @@ export const StationFirstContent = ({ data } = {}) =>{
                   className={`line-menu-btn ${
                     selectedMenuId === i.lineCode ? "active" : ""
                   }`}
-                  onClick={() => setSelectedMenuId(i.lineCode)}
+                  onClick={() => handleLineChange(i.lineCode, i.stationCode)}
                 >
                   {i.lineName}
                 </button>
@@ -69,9 +110,9 @@ export const StationFirstContent = ({ data } = {}) =>{
           </div>
           <div className="first-body-timeinfo">
             <div className="timeinfo-container">
-              <div className="timeinfo-header">오기쿠보 방향</div>
+              <div className="timeinfo-header">정방향</div>
               <div className="timeinfo-body">
-                {timeList?.map((item, index) => (
+                {forwardTrains.map((item, index) => (
                   <div className="time-cell" key={index}>
                     <div className="destination-area">
                       {item.trainDestination}
@@ -82,9 +123,9 @@ export const StationFirstContent = ({ data } = {}) =>{
               </div>
             </div>
             <div className="timeinfo-container">
-              <div className="timeinfo-header">콧카이기지도마에 방향</div>
+              <div className="timeinfo-header">역방향</div>
               <div className="timeinfo-body">
-                {timeList?.map((item, index) => (
+                {backwardTrains.map((item, index) => (
                   <div className="time-cell" key={index}>
                     <div className="destination-area">
                       {item.trainDestination}
@@ -120,11 +161,11 @@ export const StationSecondContent = ({ data } = {}) => {
   
 };
 
-export default function getStationContent(stationData){
+export default function getStationContent(stationData, onStationChange){
     //console.log("[StationContent.jsx]", stationData);
     if(!stationData) return { firstContent: null, secondContent: null };
     return {
-        firstContent: <StationFirstContent data={stationData}/>,
+        firstContent: <StationFirstContent data={stationData} onStationChange={onStationChange} />,
         secondContent: <StationSecondContent data={stationData}/>
     };
 }

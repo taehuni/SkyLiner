@@ -23,7 +23,7 @@ export default function MainPage(){
 
     const BottomSheetContent = useMemo(()=>{
       if(stationInfo){//stationInfo가 있을때, 역 데이터
-        return getStationContent(stationInfo);
+        return getStationContent(stationInfo, setSelectedNodeId);
       }
       return {//stationInfo가 없을때 기본 데이터
         firstContent: <StoreSummary />,
