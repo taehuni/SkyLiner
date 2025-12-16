@@ -8,9 +8,9 @@ import SearchIcon from '../../../assets/icon-search.svg';
 export default function Navbar({ onHeightCalc, menuOpenClick }){
   const ref = useRef(null);
   useEffect(() => {
-    if(ref.current){
+    if (ref.current) {
       const renderedHeight = ref.current.offsetHeight; //렌더링된 높이 측정
-      onHeightCalc(renderedHeight);//부모의 콜백 함수로 실제 렌더링된 높이 전달
+      onHeightCalc(renderedHeight); //부모의 콜백 함수로 실제 렌더링된 높이 전달
     }
   }, [onHeightCalc]);//onHeightCalc가 변경 될 때 마다 실행
 

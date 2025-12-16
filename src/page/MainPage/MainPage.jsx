@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/common/Navbar/';
 import Menubar from '../../components/common/Menubar/';
 import BottomSheet from '../../components/common/BottomSheet/';
@@ -9,27 +10,41 @@ import { useStationInfoLoader } from '../../scripts/useStationInfoLoader.js';
 import './MainPage.css';
 
 export default function MainPage(){
+    const navigate = useNavigate();
     const [menubarVisible, setMenubarVisible] = useState(false);//메뉴바 표시 상태 관리. 기본값 false
     const [navbarHeightValue, setNavbarHeight] = useState(0);//네비게이션 바 높이 저장할 상태 배열. 초기값 0
     const [sheetMode, setSheetMode] = useState("COLLAPSED"); // 바텀시트 상태 모드 추가. 기본값: COLLAPSED
     const [selectedNodeId, setSelectedNodeId] = useState("");
+    const [mainContentClick, setMainContentClick] = useState(false);
     const nodeRef = useRef(null);
     const stationInfo = useStationInfoLoader(selectedNodeId);
+    const handleStationBodyClick = useCallback(()=>{
+      setMainContentClick(true);
+      
+    },[]);
+    const NavigatePage = () => {
+      navigate("/StationDetailPage", { state: stationInfo?.stationCode}); //호출시 해당 react페이지로 이동 및 역 정보 전달
+    };
 
-    /*useEffect(() => {//모니터링용
-      if (stationInfo)
-        console.log("[MainPage.jsx] ", stationInfo);
-    }, [stationInfo]);*/
+    useEffect(() => {
+      //모니터링용
+      //if (stationInfo) console.log("[MainPage.jsx] ", stationInfo);
+      //console.log("stationBodyClicked", mainContentClick);
+      if(mainContentClick == true) NavigatePage();
+    }, [stationInfo, mainContentClick]);
 
-    const BottomSheetContent = useMemo(()=>{
-      if(stationInfo){//stationInfo가 있을때, 역 데이터
-        return getStationContent(stationInfo);
+    
+    const BottomSheetContent = useMemo(() => {
+      if (stationInfo) {
+        //stationInfo가 있을때, 역 데이터
+        return getStationContent(stationInfo, "bottomSheet", handleStationBodyClick);
       }
-      return {//stationInfo가 없을때 기본 데이터
+      return {
+        //stationInfo가 없을때 기본 데이터
         firstContent: <StoreSummary />,
         secondContent: <StoreDetails />,
       };
-    },[stationInfo]);
+    }, [stationInfo, handleStationBodyClick]);
 
     const handleNodeClick = (nodeId) =>{ // 노드 클릭시 실행할 핸들러
       setSelectedNodeId(nodeId);
@@ -49,7 +64,7 @@ export default function MainPage(){
       setMenubarVisible(false);
     };
 
-
+    
 
     return (
       <>

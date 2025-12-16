@@ -1,5 +1,5 @@
 import React from "react";
-import './CardList.css';
+import './CardListWrapper.css';
 import PlaceListCard from '../../cards/PlaceListCard';
 
 export default function CardListWrapper({ cardData }) {
