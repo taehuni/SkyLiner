@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getStationByCode } from '../utils/api';
 
-export const useStationInfoLoader = (selectedNodeId) => {
+export const useStationInfoLoader = (selectedNodeId, type=null) => {
   const [info, setInfo] = useState(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const useStationInfoLoader = (selectedNodeId) => {
     };
 
     fetchStationInfo();
-  }, [selectedNodeId]);
+  }, [selectedNodeId, type]);
 
   return info;
 };

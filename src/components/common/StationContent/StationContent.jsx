@@ -5,10 +5,11 @@ import  { useStationInfoLoader } from '../../../scripts/useStationInfoLoader.js'
 import { sliceStationInfoByTime } from '../../../scripts/sliceStationInfoByTime.js';
 import ClockIcon from '../../../assets/icon-clock.svg';
 
-export const StationFirstContent = ({ data, onStationChange } = {}) =>{
+export const StationFirstContent = ({ data, onStationChange, onBodyClick, type } = {}) =>{
     //console.log("[StationContent.jsx] First: ", data.stationName_kn);
     const [selectedMenuId, setSelectedMenuId] = useState(data?.stationLineCode || "M");
     const [selectedStationCode, setSelectedStationCode] = useState(data?.stationCode);
+    const [contentType, setContentType] = useState(null);
 
     // 환승역/분기선: allLines가 2개 이상이면 같은 역의 다른 노선
     const allLines = data?.allLines || [];
@@ -65,80 +66,82 @@ export const StationFirstContent = ({ data, onStationChange } = {}) =>{
         setSelectedMenuId(data.stationLineCode);
         setSelectedStationCode(data.stationCode);
       }
-    }, [data?.stationCode]);
+      if(type != null){
+        setContentType(type);
+      }
+    }, [data?.stationCode, type]);
 
-
-    //console.log(prevStationNameKr, nextStationNameKr);
-    return (
-      <div className="first-container">
-        <div className="first-station-header">
-          <h2 className="first-title">{stationNameKr}</h2>
-          <span className="first-category">{lineName}</span>
-          <div className="first-img-wrapper">
-            {imglink && (
-              <img src={imglink} alt={lineName} className="first-img" />
-            )}
+  //console.log(prevStationNameKr, nextStationNameKr);
+  return (
+    <div className="first-container">
+      <div className="first-station-header">
+        <h2 className="first-title">{stationNameKr}</h2>
+        <span className="first-category">{lineName}</span>
+        <div className="first-img-wrapper">
+          {imglink && (
+            <img src={imglink} alt={lineName} className="first-img" />
+          )}
+        </div>
+      </div>
+      {showLineSelector && (
+        <div className="first-line-selector">
+          <div className="line-selector-container">
+            {menuBtnList.map((i) => (
+              <button
+                key={i.lineCode}
+                className={`line-menu-btn ${
+                  selectedMenuId === i.lineCode ? "active" : ""
+                }`}
+                onClick={() => handleLineChange(i.lineCode, i.stationCode)}
+              >
+                {i.lineName}
+              </button>
+            ))}
           </div>
         </div>
-        {showLineSelector && (
-          <div className="first-line-selector">
-            <div className="line-selector-container">
-              {menuBtnList.map((i) => (
-                <button
-                  key={i.lineCode}
-                  className={`line-menu-btn ${
-                    selectedMenuId === i.lineCode ? "active" : ""
-                  }`}
-                  onClick={() => handleLineChange(i.lineCode, i.stationCode)}
-                >
-                  {i.lineName}
-                </button>
+      )}
+
+      <div className="first-body" onTouchEnd={onBodyClick}>
+        <div className="first-body-stationinfo">
+          <div className="first-staioninfo-before">
+            {prevStationNameKr?.stationName_kn ?? "이전 역 없음"}
+          </div>
+          <div className="first-stationinfo-current">{stationNameKr}</div>
+          <div className="first-stationinfo-next">
+            {nextStationNameKr?.stationName_kn ?? "다음 역 없음"}
+          </div>
+        </div>
+        <div className="first-body-timeinfo">
+          <div className="timeinfo-container">
+            <div className="timeinfo-header">정방향</div>
+            <div className="timeinfo-body">
+              {forwardTrains.map((item, index) => (
+                <div className="time-cell" key={index}>
+                  <div className="destination-area">
+                    {item.trainDestination}
+                  </div>
+                  <div className="lefttime-area">{item.departureTime}</div>
+                </div>
               ))}
             </div>
           </div>
-        )}
-
-        <div className="first-body">
-          <div className="first-body-stationinfo">
-            <div className="first-staioninfo-before">
-              {prevStationNameKr?.stationName_kn ?? "이전 역 없음"}
-            </div>
-            <div className="first-stationinfo-current">{stationNameKr}</div>
-            <div className="first-stationinfo-next">
-              {nextStationNameKr?.stationName_kn ?? "다음 역 없음"}
-            </div>
-          </div>
-          <div className="first-body-timeinfo">
-            <div className="timeinfo-container">
-              <div className="timeinfo-header">정방향</div>
-              <div className="timeinfo-body">
-                {forwardTrains.map((item, index) => (
-                  <div className="time-cell" key={index}>
-                    <div className="destination-area">
-                      {item.trainDestination}
-                    </div>
-                    <div className="lefttime-area">{item.departureTime}</div>
+          <div className="timeinfo-container">
+            <div className="timeinfo-header">역방향</div>
+            <div className="timeinfo-body">
+              {backwardTrains.map((item, index) => (
+                <div className="time-cell" key={index}>
+                  <div className="destination-area">
+                    {item.trainDestination}
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="timeinfo-container">
-              <div className="timeinfo-header">역방향</div>
-              <div className="timeinfo-body">
-                {backwardTrains.map((item, index) => (
-                  <div className="time-cell" key={index}>
-                    <div className="destination-area">
-                      {item.trainDestination}
-                    </div>
-                    <div className="lefttime-area">{item.departureTime}</div>
-                  </div>
-                ))}
-              </div>
+                  <div className="lefttime-area">{item.departureTime}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export const StationSecondContent = ({ data } = {}) => {
@@ -158,14 +161,13 @@ export const StationSecondContent = ({ data } = {}) => {
       </div>
     </div>
   );
-  
 };
 
-export default function getStationContent(stationData, onStationChange){
+export default function getStationContent(stationData, onStationChange, type = null, onContentClick = null){
     //console.log("[StationContent.jsx]", stationData);
     if(!stationData) return { firstContent: null, secondContent: null };
     return {
-        firstContent: <StationFirstContent data={stationData} onStationChange={onStationChange} />,
+        firstContent: <StationFirstContent data={stationData} onStationChange={onStationChange} onBodyClick={onContentClick} type={type} />,
         secondContent: <StationSecondContent data={stationData}/>
     };
 }

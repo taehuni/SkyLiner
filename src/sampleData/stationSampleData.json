@@ -130,6 +130,11 @@
         "lineCode": "G",
         "lineName": "긴자선"
       }
+    ],
+    "stationTimeTable" : [
+      {
+        
+      }
     ]
   }
 ]

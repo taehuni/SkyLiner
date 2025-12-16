@@ -83,6 +83,8 @@
 .card-list-wrapper{
     width: 90%;
     position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     overflow-y: auto;
     padding-top: var(--header-container-height);
     box-sizing: border-box;
