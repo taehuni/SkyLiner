@@ -55,7 +55,6 @@ export const useStationInfoLoader = (selectedNodeId, type=null) => {
       
       stationData.stationTimeTableType.forEach((e)=>{
         const name = e.split(".");
-        const timetablestation = 
         const stationcode = stationData.find(
           (i) => i?.stationTitle.en === name[1]
         ).stationCode;
@@ -75,7 +74,7 @@ export const useStationInfoLoader = (selectedNodeId, type=null) => {
         }
         timeTable.forEach((e)=>{
           if(e.line == BASE_STURCTURE.stationLine){
-            if(e.)
+            //
           }
         })
       });
