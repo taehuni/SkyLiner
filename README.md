@@ -1,10 +1,37 @@
+<div align="center">
+
 # SkyLiner
 
-도쿄 지하철 노선도에서 역을 선택하고, 역 정보·열차 시간표·주변 장소·날씨를 조회하는 흐름을 구현해 본 학교 팀 프로젝트입니다.
+**도쿄 지하철 노선도에서 역·시간표·주변 장소·날씨를 조회하는 웹 애플리케이션**
+
+학교에서 처음 진행한 웹 팀 프로젝트의 구현 내용과 한계를 현재 시점에서 다시 정리한 저장소입니다.
+
+![Project Status](https://img.shields.io/badge/status-incomplete%20%2F%20archived-E67E22)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=000)
+![Express](https://img.shields.io/badge/Express-5-000000?logo=express&logoColor=fff)
+![MySQL](https://img.shields.io/badge/MySQL-database-4479A1?logo=mysql&logoColor=fff)
+![Team Project](https://img.shields.io/badge/type-school%20team%20project-6C63FF)
+
+</div>
 
 > **Project Status: Incomplete / Archived**
 >
 > 학교에서 처음 진행한 웹 팀 프로젝트로, 일부 기능은 구현을 완료하지 못했습니다. 현재 기준에서는 코드 구조, 예외 처리, 테스트, 데스크톱 대응 등에 개선할 부분이 있습니다. 이 저장소는 완성된 서비스가 아니라 당시 실제로 구현한 범위와 개발 과정에서 얻은 경험을 기록하기 위해 정리했습니다.
+
+## Contents
+
+- [Overview](#overview)
+- [Feature Status](#feature-status)
+- [Main Flow](#main-flow)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [API Scope](#api-scope)
+- [Database](#database)
+- [Getting Started](#getting-started)
+- [Current Limitations](#current-limitations)
+- [Verification](#verification)
+- [Retrospective](#retrospective)
+- [Team & Contribution](#team--contribution)
 
 ## Overview
 
